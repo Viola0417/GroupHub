@@ -28,11 +28,6 @@ KEY adminName(adminName)
 INSERT INTO admin(adminName, adminPassword) VALUES
 ('admin','123456');
 
-
-```
-
-![Screen Shot 2020-10-26 at 10.29.05 PM](/Users/luyaojin/Library/Application Support/typora-user-images/Screen Shot 2020-10-26 at 10.29.05 PM.png)
-
 ----
 
 ## more tables to be added 

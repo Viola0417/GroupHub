@@ -16,13 +16,13 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-        <!--数据库驱动-->
+        <!--mysql driver-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.15</version>
         </dependency>
-        <!-- 数据库连接池 -->
+        <!-- database connection pool-->
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
@@ -64,6 +64,7 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.8.13</version>
         </dependency>
+
         <!--Spring-->
         <dependency>
             <groupId>org.springframework</groupId>
