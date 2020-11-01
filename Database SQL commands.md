@@ -19,10 +19,12 @@ USE grouphub;
 ## Admin Table
 
 ```SQL
+DROP TABLE IF EXISTS admin;
+
 CREATE TABLE admin (
+adminId INT(3) PRIMARY KEY NOT NULL auto_increment,
 adminName VARCHAR(100) NOT NULL,
-adminPassword VARCHAR(100) NOT NULL,
-KEY adminName(adminName)
+adminPassword VARCHAR(100) NOT NULL
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 INSERT INTO admin(adminName, adminPassword) VALUES
