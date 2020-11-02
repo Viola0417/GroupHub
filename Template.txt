@@ -1,0 +1,9 @@
+https://github.com/booleanhunter/ReactJS-AdminLTE
+
+https://material-ui.com/getting-started/templates/
+
+https://github.com/marmelab/react-admin
+
+https://www.creative-tim.com/product/now-ui-dashboard-react?partner=104080
+
+https://www.wrappixel.com/templates/xtreme-react-admin-lite/
