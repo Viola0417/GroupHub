@@ -9,4 +9,28 @@
     <select id="searchPasswordByName" resultType="string">
         select adminPassword from grouphub.admin where adminName = #{adminName};
     </select>
+
+    <!--update password-->
+    <update id="updatePassword" parameterType="Admin">
+        update grouphub.admin
+        set adminPassword = #{adminPassword}
+        where adminName = #{adminName};
+    </update>
+
+    <!--delete admin by admin name-->
+    <delete id="deleteAdminByName" parameterType="String">
+        delete from grouphub.admin where adminName = #{adminName};
+    </delete>   
+    
+    <!--insert admin by admin name-->
+    <insert id="addAdmin" parameterType="Admin">
+        insert into grouphub.admin(adminName, adminPassword)
+        values (#{adminName}, #{adminPassword});
+    </insert>
+
+    <!--check whether admin with admin name in admin table-->
+    <select id="checkAdminExist" parameterType="String" resultType="Integer">
+        select count(adminName) from grouphub.admin
+        where adminName = #{adminName};
+    </select>
 </mapper>

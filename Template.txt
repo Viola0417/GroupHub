@@ -1,0 +1,13 @@
+https://github.com/marmelab/react-admin.git
+
+https://codedthemes.com/item/datta-able-react-free-admin-template/
+
+https://www.creative-tim.com/product/argon-dashboard-react/?partner=91096
+
+https://www.wrappixel.com/templates/xtreme-react-admin-lite/
+
+https://github.com/trajano/reactjs-admin.git
+
+https://github.com/wimagguc/react-django-admin.git
+
+https://material-ui.com/getting-started/templates/
