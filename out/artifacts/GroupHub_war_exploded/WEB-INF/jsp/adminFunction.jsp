@@ -4,6 +4,12 @@
     <title>Admin Function Page</title>
 </head>
 <body>
-Administrators successfully log in!
+Hi ${adminName}!<br><br><br>
+
+<form action="/admin/toAdminModifyPassword" method="post">
+    <input type="hidden" name="adminName" value="${currentAdminName}">
+    <button type="submit">Modify Password</button>
+</form>
+
 </body>
 </html>

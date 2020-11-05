@@ -19,6 +19,10 @@
         <property name="AdminMapper" ref="adminMapper"/>
     </bean>
 
+    <bean id="UserServiceImpl" class="com.jwj.service.UserServiceImpl">
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>

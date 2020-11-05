@@ -1,13 +1,13 @@
 package com.jwj.pojo;
 
-import lombok.*;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Admin {
     private String adminName;
     private String adminPassword;
+
+    public Admin(String adminName, String adminPassword) {
+        this.adminName = adminName;
+        this.adminPassword = adminPassword;
+    }
 
     public String getAdminName() {
         return adminName;
