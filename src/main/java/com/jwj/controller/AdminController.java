@@ -77,4 +77,9 @@ public class AdminController {
     public String toAdminFunction() {
         return "adminFunction";
     }
+
+    @RequestMapping("/toAdminAddGroup")
+    public String toAdminAddGroup() {
+        return "adminAddGroup";
+    }
 }

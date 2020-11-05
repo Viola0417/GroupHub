@@ -7,8 +7,11 @@
 Hi ${adminName}!<br><br><br>
 
 <form action="/admin/toAdminModifyPassword" method="post">
-    <input type="hidden" name="adminName" value="${currentAdminName}">
     <button type="submit">Modify Password</button>
+</form>
+
+<form action="/admin/toAdminAddGroup" method="post">
+    <button type="submit">Add Group</button>
 </form>
 
 </body>
