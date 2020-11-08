@@ -2,17 +2,13 @@ package com.jwj.pojo;
 
 public class Category {
     private int categoryId;
+    private String categoryType;
     private String categoryName;
     private String description;
-    private double ratings;
+    private int totalRateNumber;
+    private double totalRateScore;
 
-    public Category() {}
-
-    public Category(int categoryId, String categoryName, String description, double ratings) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-        this.description = description;
-        this.ratings = ratings;
+    public Category() {
     }
 
     public int getCategoryId() {
@@ -21,6 +17,14 @@ public class Category {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(String categoryType) {
+        this.categoryType = categoryType;
     }
 
     public String getCategoryName() {
@@ -39,11 +43,19 @@ public class Category {
         this.description = description;
     }
 
-    public double getRatings() {
-        return ratings;
+    public int getTotalRateNumber() {
+        return totalRateNumber;
     }
 
-    public void setRatings(double ratings) {
-        this.ratings = ratings;
+    public void setTotalRateNumber(int totalRateNumber) {
+        this.totalRateNumber = totalRateNumber;
+    }
+
+    public double getTotalRateScore() {
+        return totalRateScore;
+    }
+
+    public void setTotalRateScore(double totalRateScore) {
+        this.totalRateScore = totalRateScore;
     }
 }

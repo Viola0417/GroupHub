@@ -2,21 +2,16 @@ package com.jwj.pojo;
 
 public class Post {
     private int postId;
+    private int categoryId;
+    private int rootId;
     private String postContent;
     private String createdTime;
-    private int parentId;
-    private int topicId;
+    private int previousPostId;
+    private double ratingScore;
+    private int totalLike;
+    private int totalReply;
 
     public Post() {
-
-    }
-
-    public Post(int postId, String postContent, String createdTime, int parentId, int topicId) {
-        this.postId = postId;
-        this.postContent = postContent;
-        this.createdTime = createdTime;
-        this.parentId = parentId;
-        this.topicId = topicId;
     }
 
     public int getPostId() {
@@ -25,6 +20,22 @@ public class Post {
 
     public void setPostId(int postId) {
         this.postId = postId;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public int getRootId() {
+        return rootId;
+    }
+
+    public void setRootId(int rootId) {
+        this.rootId = rootId;
     }
 
     public String getPostContent() {
@@ -43,19 +54,35 @@ public class Post {
         this.createdTime = createdTime;
     }
 
-    public int getParentId() {
-        return parentId;
+    public int getPreviousPostId() {
+        return previousPostId;
     }
 
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
+    public void setPreviousPostId(int previousPostId) {
+        this.previousPostId = previousPostId;
     }
 
-    public int getTopicId() {
-        return topicId;
+    public double getRatingScore() {
+        return ratingScore;
     }
 
-    public void setTopicId(int topicId) {
-        this.topicId = topicId;
+    public void setRatingScore(double ratingScore) {
+        this.ratingScore = ratingScore;
+    }
+
+    public int getTotalLike() {
+        return totalLike;
+    }
+
+    public void setTotalLike(int totalLike) {
+        this.totalLike = totalLike;
+    }
+
+    public int getTotalReply() {
+        return totalReply;
+    }
+
+    public void setTotalReply(int totalReply) {
+        this.totalReply = totalReply;
     }
 }
