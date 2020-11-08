@@ -56,4 +56,16 @@ public class User {
     public void setNoOfGroups(int noOfGroups) {
         this.noOfGroups = noOfGroups;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", email='" + email + '\'' +
+                ", status=" + status +
+                ", noOfFriends=" + noOfFriends +
+                ", noOfGroups=" + noOfGroups +
+                '}';
+    }
 }
