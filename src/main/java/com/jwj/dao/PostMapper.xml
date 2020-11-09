@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jwj.dao.PostMapper">
+
+    <!--query all movie root post-->
+    <select id="queryAllMovieRootPost" resultType="Post">
+        SELECT * from grouphub.post
+        where categoryType = 1 and rootId = 0;
+    </select>
+</mapper>

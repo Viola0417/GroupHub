@@ -10,8 +10,16 @@ Hi ${adminName}!<br><br><br>
     <button type="submit">Modify Password</button>
 </form>
 
-<form action="/admin/toAdminAddGroup" method="post">
-    <button type="submit">Add Group</button>
+<form action="/movie/toMovie" method="post">
+    <button type="submit">Movie</button>
+</form>
+
+<form action="/admin/toBook" method="post">
+    <button type="submit">Book</button>
+</form>
+
+<form action="/admin/toTravel" method="post">
+    <button type="submit">Travel</button>
 </form>
 
 </body>

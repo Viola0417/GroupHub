@@ -83,16 +83,13 @@ public class AdminController {
         return "adminAddGroup";
     }
 
-    /*
-    @RequestMapping("/addGroup")
-    public String addGroup(@RequestParam("categoryTypeSelection") String categoryTypeSelection, @RequestParam("categoryNameInput") String categoryName,
-                           @RequestParam("categoryDescriptionText") String categoryDescription, Model model) {
-        System.out.println("add group: type => " + categoryTypeSelection);
-        System.out.println("name => " + categoryName);
-        System.out.println("description => " + categoryDescription);
-        String msg = "Successfully add group, return";
-        model.addAttribute("msg", msg);
-        return "adminAddGroup";
+    @RequestMapping("/toBook")
+    public String toBook() {
+        return "adminBook";
     }
-    */
+
+    @RequestMapping("/toTravel")
+    public String toTravel() {
+        return "adminTravel";
+    }
 }

@@ -23,8 +23,12 @@
         <property name="UserMapper" ref="userMapper"/>
     </bean>
 
-    <bean id="CategoryServiceImpl" class="com.jwj.service.CategoryServiceImpl">
-        <property name="CategoryMapper" ref="categoryMapper"/>
+    <bean id="PostServiceImpl" class="com.jwj.service.PostServiceImpl">
+        <property name="PostMapper" ref="postMapper"/>
+    </bean>
+
+    <bean id="MovieServiceImpl" class="com.jwj.service.MovieServiceImpl">
+        <property name="MovieMapper" ref="movieMapper"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

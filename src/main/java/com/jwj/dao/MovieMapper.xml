@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jwj.dao.MovieMapper">
+
+    <!--query all movie-->
+    <select id="queryAllMovie" resultType="Movie">
+        SELECT * from grouphub.movie;
+    </select>
+
+    <!-- add a new movie-->
+    <insert id="addMovie" parameterType="Movie">
+        insert into grouphub.movie(movieName, movieYear, description, totalRateNumber, totalRateScore)
+        value (#{movieName}, #{movieYear}, #{description}, #{totalRateNumber}, #{totalRateScore});
+    </insert>
+
+    <!-- get movie year by name -->
+    <select id="getYearByName" parameterType="string" resultType="Integer">
+        select movieYear from grouphub.movie
+        where movieName = #{movieName};
+    </select>
+
+    <!-- check whether movie exist -->
+    <select id="checkMovieExist" parameterType="string" resultType="Integer">
+        select count(movieName) from grouphub.movie
+        where movieName = #{movieName};
+    </select>
+
+    <!-- delete a movie by its id -->
+    <delete id="deleteMovieById" parameterType="Integer">
+        delete from grouphub.movie where movieId = #{movieId};
+    </delete>
+
+    <!-- update movie -->
+    <update id="updateMovie" parameterType="Movie">
+        update grouphub.movie
+        set movieName = #{movieName}, movieYear = #{movieYear}, description = #{description},
+        totalRateNumber = #{totalRateNumber}, totalRateScore = #{totalRateScore}
+        where movieId = #{movieId};
+    </update>
+
+    <!-- return a movie by its id -->
+    <select id="queryMovieById" resultType="Movie" parameterType="Integer">
+        select * from grouphub.movie where movieId = #{movieId};
+    </select>
+</mapper>

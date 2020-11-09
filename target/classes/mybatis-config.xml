@@ -17,7 +17,8 @@
     <mappers>
         <mapper resource="com/jwj/dao/AdminMapper.xml"/>
         <mapper resource="com/jwj/dao/UserMapper.xml"/>
-        <mapper resource="com/jwj/dao/CategoryMapper.xml"/>
+        <mapper resource="com/jwj/dao/PostMapper.xml"/>
+        <mapper resource="com/jwj/dao/MovieMapper.xml"/>
     </mappers>
 
 </configuration>
