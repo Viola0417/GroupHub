@@ -20,7 +20,11 @@
     </bean>
 
     <bean id="UserServiceImpl" class="com.jwj.service.UserServiceImpl">
-        <property name="userMapper" ref="userMapper"/>
+        <property name="UserMapper" ref="userMapper"/>
+    </bean>
+
+    <bean id="CategoryServiceImpl" class="com.jwj.service.CategoryServiceImpl">
+        <property name="CategoryMapper" ref="categoryMapper"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

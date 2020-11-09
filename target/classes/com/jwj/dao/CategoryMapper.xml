@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jwj.dao.CategoryMapper">
+
+    <!-- add new category-->
+    <insert id="addCategory" parameterType="Category">
+        insert into grouphub.category(categoryType, categoryName, description, totalRateNumber, totalRateScore)
+        values (#{categoryType}, #{categoryName}, #{description}, #{totalRateNumber}, #{totalRateScore});
+    </insert>
+
+    <!--search category type by category name-->
+    <select id="queryTypeByName" resultType="string">
+        select categoryType from grouphub.category
+        where categoryName = #{categoryName};
+    </select>
+
+</mapper>

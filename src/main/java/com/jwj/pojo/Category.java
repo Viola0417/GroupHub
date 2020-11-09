@@ -11,6 +11,14 @@ public class Category {
     public Category() {
     }
 
+    public Category(String categoryType, String categoryName, String description) {
+        this.categoryType = categoryType;
+        this.categoryName = categoryName;
+        this.description = description;
+        this.totalRateNumber = 0;
+        this.totalRateScore = 0.0;
+    }
+
     public int getCategoryId() {
         return categoryId;
     }
@@ -57,5 +65,17 @@ public class Category {
 
     public void setTotalRateScore(double totalRateScore) {
         this.totalRateScore = totalRateScore;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", categoryType='" + categoryType + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", description='" + description + '\'' +
+                ", totalRateNumber=" + totalRateNumber +
+                ", totalRateScore=" + totalRateScore +
+                '}';
     }
 }
