@@ -10,5 +10,9 @@ Hi ${userName}!
     <button type="submit">Modify Password</button>
 </form>
 
+<form action="/movie/toUserMovie" method="post">
+    <button type="submit">Movie</button>
+</form>
+
 </body>
 </html>

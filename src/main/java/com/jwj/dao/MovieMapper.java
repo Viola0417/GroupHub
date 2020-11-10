@@ -26,4 +26,7 @@ public interface MovieMapper {
 
     //query movie by id
     Movie queryMovieById(int movieId);
+
+    //query movie by name
+    List<Movie> queryMovieByName(String movieName);
 }

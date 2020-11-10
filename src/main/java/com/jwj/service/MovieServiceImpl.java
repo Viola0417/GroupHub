@@ -48,4 +48,9 @@ public class MovieServiceImpl implements MovieService {
     public Movie queryMovieById(int movieId) {
         return movieMapper.queryMovieById(movieId);
     }
+
+    //query movie by name
+    public List<Movie> queryMovieByName(String movieName) {
+        return movieMapper.queryMovieByName(movieName);
+    }
 }

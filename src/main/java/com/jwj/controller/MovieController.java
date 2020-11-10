@@ -74,4 +74,25 @@ public class MovieController {
         movieService.deleteMovieById(movieId);
         return "redirect:/movie/toMovie";
     }
+
+    @RequestMapping("/toUserMovie")
+    public String toUserMovie(Model model) {
+        List<Movie> movieList = movieService.queryAllMovie();
+        /*
+        System.out.println("-----toUserMovie------");
+        for (Movie m: movieList) {
+            System.out.println(m.toString());
+        }
+        System.out.println("-----toUserMovie------");
+         */
+        model.addAttribute("movieList", movieList);
+        return "userMovie";
+    }
+
+    @RequestMapping("/userQueryMovie")
+    public String userQueryMovieByName(@RequestParam("queryMovieName") String movieName, Model model) {
+        List<Movie> movie = movieService.queryMovieByName(movieName);
+        model.addAttribute("movieList", movie);
+        return "userMovie";
+    }
 }

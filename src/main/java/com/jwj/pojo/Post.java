@@ -2,6 +2,7 @@ package com.jwj.pojo;
 
 public class Post {
     private int postId;
+    private String postUserName;
     private int categoryType;
     private int categoryId;
     private int rootId;
@@ -17,6 +18,14 @@ public class Post {
 
     public void setPostId(int postId) {
         this.postId = postId;
+    }
+
+    public String getPostUserName() {
+        return postUserName;
+    }
+
+    public void setPostUserName(String postUserName) {
+        this.postUserName = postUserName;
     }
 
     public int getCategoryType() {

@@ -45,4 +45,10 @@
     <select id="queryMovieById" resultType="Movie" parameterType="Integer">
         select * from grouphub.movie where movieId = #{movieId};
     </select>
+
+    <!-- return list of movie by its name -->
+    <select id="queryMovieByName" resultType="Movie" parameterType="string">
+        select * from grouphub.movie
+        where movieName = #{movieName};
+    </select>
 </mapper>
