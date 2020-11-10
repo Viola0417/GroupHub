@@ -8,8 +8,12 @@ public class Book {
     private int totalRateNumber;
     private double totalRateScore;
 
-    public Book() {
-
+    public Book(String bookName, String bookAuthor, String description) {
+        this.bookName = bookName;
+        this.bookAuthor = bookAuthor;
+        this.description = description;
+        this.totalRateNumber = 0;
+        this.totalRateScore = 0.0;
     }
 
     public int getBookId() {
@@ -58,5 +62,17 @@ public class Book {
 
     public void setTotalRateScore(double totalRateScore) {
         this.totalRateScore = totalRateScore;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                ", bookAuthor=" + bookAuthor +
+                ", description='" + description + '\'' +
+                ", totalRateNumber=" + totalRateNumber +
+                ", totalRateScore=" + totalRateScore +
+                '}';
     }
 }

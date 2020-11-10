@@ -14,11 +14,11 @@ Hi ${adminName}!<br><br><br>
     <button type="submit">Movie</button>
 </form>
 
-<form action="/admin/toBook" method="post">
+<form action="/book/toBook" method="post">
     <button type="submit">Book</button>
 </form>
 
-<form action="/admin/toTravel" method="post">
+<form action="/book/toTravel" method="post">
     <button type="submit">Travel</button>
 </form>
 

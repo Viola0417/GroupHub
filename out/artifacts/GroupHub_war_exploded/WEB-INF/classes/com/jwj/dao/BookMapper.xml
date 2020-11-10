@@ -5,4 +5,50 @@
 
 <mapper namespace="com.jwj.dao.BookMapper">
 
+    <!--query all book-->
+    <select id="queryAllBook" resultType="Book">
+        SELECT * from grouphub.book;
+    </select>
+
+    <!-- add a new book-->
+    <insert id="addBook" parameterType="Book">
+        insert into grouphub.book(bookName, bookAuthor, description, totalRateNumber, totalRateScore)
+        value (#{bookName}, #{bookAuthor}, #{description}, #{totalRateNumber}, #{totalRateScore});
+    </insert>
+
+    <!-- get book author by name -->
+    <select id="getAuthorByName" parameterType="string" resultType="string">
+        select bookAuthor from grouphub.book
+        where bookName = #{bookName};
+    </select>
+
+    <!-- check whether book exist -->
+    <select id="checkBookExist" parameterType="string" resultType="Integer">
+        select count(bookName) from grouphub.book
+        where bookName = #{bookName};
+    </select>
+
+    <!-- delete a book by its id -->
+    <delete id="deleteBookById" parameterType="Integer">
+        delete from grouphub.book where bookId = #{bookId};
+    </delete>
+
+    <!-- update book -->
+    <update id="updateBook" parameterType="Book">
+        update grouphub.book
+        set bookName = #{bookName}, bookAuthor = #{bookAuthor}, description = #{description},
+        totalRateNumber = #{totalRateNumber}, totalRateScore = #{totalRateScore}
+        where bookId = #{bookId};
+    </update>
+
+    <!-- return a book by its id -->
+    <select id="queryBookById" resultType="Book" parameterType="Integer">
+        select * from grouphub.book where bookId = #{bookId};
+    </select>
+
+    <!-- return list of book by its name -->
+    <select id="queryBookByName" resultType="Book" parameterType="string">
+        select * from grouphub.book
+        where bookName = #{bookName};
+    </select>
 </mapper>

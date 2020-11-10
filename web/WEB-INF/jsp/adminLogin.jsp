@@ -27,7 +27,7 @@
         <input type="password" id="adminPassword" name="adminPassword" placeholder="password">
         <button type="submit">Log in</button>
     </form>
-    <span style="color:red;font-weight: bold">${error}</span>
+    <span style="color:#ff0000;font-weight: bold">${error}</span>
 </div>
 </body>
 </html>

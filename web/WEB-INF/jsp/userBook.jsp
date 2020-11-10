@@ -2,8 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Book</title>
+    <title>User Book Index Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -15,16 +16,22 @@
                 <h1>
                     <small>Book List</small>
                 </h1>
+
+                <form action="/user//toUserFunction" method="post">
+                    <button type="submit">return</button>
+                </form>
+
             </div>
         </div>
     </div>
 
     <div class="row">
-
         <div class="col-md-4 column">
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/toAddBook">add book</a>
+            <form action="${pageContext.request.contextPath}/book/userQueryBook" method="post">
+                <input type="text" name="queryBookName" class="form-control" placeholder="Book Name">
+                <input type="submit" value="Query" class="btn btn-primary">
+            </form>
         </div>
-
     </div>
 
     <div class="row clearfix">
@@ -50,10 +57,8 @@
                         <td>${book.getTotalRateScore()}</td>
 
                         <td>
-                            <a href="${pageContext.request.contextPath}/book/toUpdateBook?bookId=${book.getBookId()}">Update</a> |
-                            <a href="${pageContext.request.contextPath}/book/deleteBook?bookId=${book.getBookId()}">Delete</a>
+                            <a href="${pageContext.request.contextPath}/post/toBookPost?bookId=${book.getBookId()}">More</a>
                         </td>
-
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -63,4 +68,3 @@
 </div>
 </body>
 </html>
-

@@ -14,5 +14,9 @@ Hi ${userName}!
     <button type="submit">Movie</button>
 </form>
 
+<form action="/book/toUserBook" method="post">
+    <button type="submit">Book</button>
+</form>
+
 </body>
 </html>
