@@ -18,5 +18,9 @@ Hi ${userName}!
     <button type="submit">Book</button>
 </form>
 
+<form action="/travel/toUserTravel" method="post">
+    <button type="submit">Travel</button>
+</form>
+
 </body>
 </html>

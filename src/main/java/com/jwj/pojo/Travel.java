@@ -8,8 +8,12 @@ public class Travel {
     private int totalRateNumber;
     private double totalRateScore;
 
-    public Travel() {
-
+    public Travel(String travelName, String travelCountry, String description) {
+        this.travelName = travelName;
+        this.travelCountry = travelCountry;
+        this.description = description;
+        this.totalRateNumber = 0;
+        this.totalRateScore = 0.0;
     }
 
     public int getTravelId() {

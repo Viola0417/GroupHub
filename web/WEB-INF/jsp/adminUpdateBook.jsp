@@ -22,8 +22,8 @@
         } else if (bookDescription == null || bookDescription == "") {
             alert("book description can not be empty!");
             return false;
-            return true;
         }
+        return true;
     }
 </script>
 

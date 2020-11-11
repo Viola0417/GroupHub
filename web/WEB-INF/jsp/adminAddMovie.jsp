@@ -19,8 +19,8 @@
         } else if (movieDescription == null || movieDescription == "") {
             alert("movie description can not be empty!");
             return false;
-            return true;
         }
+        return true;
     }
 </script>
 

@@ -18,7 +18,7 @@ Hi ${adminName}!<br><br><br>
     <button type="submit">Book</button>
 </form>
 
-<form action="/book/toTravel" method="post">
+<form action="/travel/toTravel" method="post">
     <button type="submit">Travel</button>
 </form>
 

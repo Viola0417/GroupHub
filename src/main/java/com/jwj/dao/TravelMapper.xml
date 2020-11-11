@@ -5,4 +5,50 @@
 
 <mapper namespace="com.jwj.dao.TravelMapper">
 
+    <!--query all travel histories-->
+    <select id="queryAllTravel" resultType="Travel">
+        SELECT * from grouphub.travel;
+    </select>
+
+    <!-- add a new travel-->
+    <insert id="addTravel" parameterType="Travel">
+        insert into grouphub.travel(travelName, travelCountry, description, totalRateNumber, totalRateScore)
+        value (#{travelName}, #{travelCountry}, #{description}, #{totalRateNumber}, #{totalRateScore});
+    </insert>
+
+    <!-- get travel country by name -->
+    <select id="getCountryByName" parameterType="string" resultType="string">
+        select travelCountry from grouphub.travel
+        where travelName = #{travelName};
+    </select>
+
+    <!-- check whether travel exist -->
+    <select id="checkTravelExist" parameterType="string" resultType="Integer">
+        select count(travelName) from grouphub.travel
+        where travelName = #{travelName};
+    </select>
+
+    <!-- delete a travel by its id -->
+    <delete id="deleteTravelById" parameterType="Integer">
+        delete from grouphub.travel where travelId = #{travelId};
+    </delete>
+
+    <!-- update travel -->
+    <update id="updateTravel" parameterType="Travel">
+        update grouphub.travel
+        set travelName = #{travelName}, travelCountry = #{travelCountry}, description = #{description},
+        totalRateNumber = #{totalRateNumber}, totalRateScore = #{totalRateScore}
+        where travelId = #{travelId};
+    </update>
+
+    <!-- return a travel by its id -->
+    <select id="queryTravelById" resultType="Travel" parameterType="Integer">
+        select * from grouphub.travel where travelId = #{travelId};
+    </select>
+
+    <!-- return list of travel by its name -->
+    <select id="queryTravelByName" resultType="Travel" parameterType="string">
+        select * from grouphub.travel
+        where travelName = #{travelName};
+    </select>
 </mapper>
