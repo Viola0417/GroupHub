@@ -9,7 +9,6 @@ public class Movie {
     private double totalRateScore;
 
     public Movie() {
-
     }
 
     public Movie(String movieName, int movieYear, String description) {

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -50,7 +51,16 @@
                         <td>${travel.getTravelCountry()}</td>
                         <td>${travel.getDescription()}</td>
                         <td>${travel.getTotalRateNumber()}</td>
-                        <td>${travel.getTotalRateScore()}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${travel.getTotalRateScore()==0}">
+                                    no rate
+                                </c:when>
+                                <c:otherwise>
+                                    <fmt:formatNumber type="number" value="${travel.getTotalRateScore()/travel.getTotalRateNumber()}" maxFractionDigits="2"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
 
                         <td>
                             <a href="${pageContext.request.contextPath}/travel/toUpdateTravel?travelId=${travel.getTravelId()}">Update</a> |

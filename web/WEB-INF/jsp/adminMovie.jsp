@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -58,7 +59,16 @@
                             <td>${movie.getMovieYear()}</td>
                             <td>${movie.getDescription()}</td>
                             <td>${movie.getTotalRateNumber()}</td>
-                            <td>${movie.getTotalRateScore()}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${movie.getTotalRateScore()==0}">
+                                        no rate
+                                    </c:when>
+                                    <c:otherwise>
+                                        <fmt:formatNumber type="number" value="${movie.getTotalRateScore()/movie.getTotalRateNumber()}" maxFractionDigits="2"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
 
                             <td>
                                 <a href="${pageContext.request.contextPath}/movie/toUpdateMovie?movieId=${movie.getMovieId()}">Update</a> |

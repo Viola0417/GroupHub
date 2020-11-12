@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,7 +8,13 @@
     <!-- Bootstrap -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
+
+    <form action="/user/toUserFunction" method="post">
+        <button type="submit">return</button>
+    </form>
+
     <div class="container">
 
         <div class="row clearfix">
@@ -17,9 +24,7 @@
                         <small>Movie List</small>
                     </h1>
 
-                    <form action="/user//toUserFunction" method="post">
-                        <button type="submit">return</button>
-                    </form>
+
 
                 </div>
             </div>
@@ -54,10 +59,18 @@
                             <td>${movie.getMovieYear()}</td>
                             <td>${movie.getDescription()}</td>
                             <td>${movie.getTotalRateNumber()}</td>
-                            <td>${movie.getTotalRateScore()}</td>
-
                             <td>
-                                <a href="${pageContext.request.contextPath}/post/toMoviePost?movieId=${movie.getMovieId()}">More</a>
+                                <c:choose>
+                                    <c:when test="${movie.getTotalRateScore()==0}">
+                                        no rate
+                                    </c:when>
+                                    <c:otherwise>
+                                        <fmt:formatNumber type="number" value="${movie.getTotalRateScore()/movie.getTotalRateNumber()}" maxFractionDigits="2"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/rate/toMovieRate?movieId=${movie.getMovieId()}">Rate</a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -23,10 +23,6 @@
         <property name="UserMapper" ref="userMapper"/>
     </bean>
 
-    <bean id="PostServiceImpl" class="com.jwj.service.PostServiceImpl">
-        <property name="PostMapper" ref="postMapper"/>
-    </bean>
-
     <bean id="MovieServiceImpl" class="com.jwj.service.MovieServiceImpl">
         <property name="MovieMapper" ref="movieMapper"/>
     </bean>
@@ -37,6 +33,10 @@
 
     <bean id="TravelServiceImpl" class="com.jwj.service.TravelServiceImpl">
         <property name="TravelMapper" ref="travelMapper"/>
+    </bean>
+
+    <bean id="RateServiceImpl" class="com.jwj.service.RateServiceImpl">
+        <property name="RateMapper" ref="rateMapper"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

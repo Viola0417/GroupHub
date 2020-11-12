@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jwj.dao.RateMapper">
+
+    <!-- query movie rate according to categoryId -->
+    <select id="queryMovieRate" resultType="Rate">
+        select * from grouphub.rate
+        where rateCategoryId = #{rateCategoryId};
+    </select>
+
+    <!-- add a rate -->
+    <insert id="addRate" parameterType="Rate">
+        insert into grouphub.rate(rateAuthor, rateTitle, rateScore, rateCreateTime, rateContent, rateCategoryType, rateCategoryId, rateTotalLike, rateTotalReply)
+        value (#{rateAuthor}, #{rateTitle}, #{rateScore}, #{rateCreateTime}, #{rateContent}, #{rateCategoryType}, #{rateCategoryId}, #{rateTotalLike}, #{rateTotalReply});
+    </insert>
+
+    <!-- query movie rate according to author and movie -->
+    <select id="queryMovieRateByAuthor" resultType="Rate" parameterType="Rate">
+        select * from grouphub.rate
+        where rateAuthor = #{rateAuthor} and rateCategoryType = #{rateCategoryType} and rateCategoryId = #{rateCategoryId};
+    </select>
+
+    <!-- query rate by rateId -->
+    <select id="queryRateById" resultType="Rate" parameterType="Integer">
+        select * from grouphub.rate
+        where rateId = #{rateId};
+    </select>
+
+    <!-- update rate -->
+    <update id="updateRate" parameterType="Rate">
+        update grouphub.rate
+        set rateTitle = #{rateTitle}, rateScore = #{rateScore}, rateCreateTime = #{rateCreateTime}, rateContent = #{rateContent}
+        where rateId = #{rateId};
+    </update>
+</mapper>

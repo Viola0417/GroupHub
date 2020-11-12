@@ -22,5 +22,9 @@ Hi ${userName}!
     <button type="submit">Travel</button>
 </form>
 
+<form action method="post">
+    <button type="submit">Log off</button>
+</form>
+
 </body>
 </html>

@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -47,7 +47,16 @@
                         <td>${book.getBookAuthor()}</td>
                         <td>${book.getDescription()}</td>
                         <td>${book.getTotalRateNumber()}</td>
-                        <td>${book.getTotalRateScore()}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${book.getTotalRateScore()==0}">
+                                    no rate
+                                </c:when>
+                                <c:otherwise>
+                                    <fmt:formatNumber type="number" value="${book.getTotalRateScore()/book.getTotalRateNumber()}" maxFractionDigits="2"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
 
                         <td>
                             <a href="${pageContext.request.contextPath}/book/toUpdateBook?bookId=${book.getBookId()}">Update</a> |
