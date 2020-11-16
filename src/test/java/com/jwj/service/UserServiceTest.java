@@ -49,4 +49,26 @@ public class UserServiceTest {
             System.out.println("This user has been deleted!");
         }
     }
+
+    @Test
+    public void testCheckEmailExist() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        UserService userServiceImpl = (UserService) context.getBean("UserServiceImpl");
+        String email = "ben1@uci.edu";
+        boolean res = userServiceImpl.checkEmailExist(email);
+        if (res) {
+            System.out.println("This email has been registered!");
+        } else {
+            System.out.println("This email has not been registered!");
+        }
+    }
+
+    @Test
+    public void testAddUser() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        UserService userServiceImpl = (UserService) context.getBean("UserServiceImpl");
+        User user = new User("jly", "970417", "luyaoj2@uci.edu");
+        userServiceImpl.addUser(user);
+        System.out.println("add completed!");
+    }
 }

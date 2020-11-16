@@ -18,4 +18,10 @@ public interface UserService {
     //check whether this user is activate
     //1 means activate, 0 means deleted
     boolean checkUserActivated(String userName);
+
+    //check whether email in user table
+    boolean checkEmailExist(String email);
+
+    //add new user
+    int addUser(User user);
 }
