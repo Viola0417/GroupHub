@@ -18,15 +18,27 @@ public class RateServiceImpl implements RateService {
     public List<Rate> queryMovieRate(int rateCategoryId) {
         return rateMapper.queryMovieRate(rateCategoryId);
     }
+    public List<Rate> queryBookRate(int rateCategoryId) { return rateMapper.queryBookRate(rateCategoryId); }
+    public List<Rate> queryTravelRate(int rateCategoryId) {
+        return rateMapper.queryTravelRate(rateCategoryId);
+    }
 
     //add a rate
     public int addRate(Rate rate) {
         return rateMapper.addRate(rate);
     }
+    public int addRateForBook(Rate rate) { return rateMapper.addRateForBook(rate); }
+    public int addRateForTravel(Rate rate) {
+        return rateMapper.addRateForTravel(rate);
+    }
 
     //query movie rate according to author and movie
     public List<Rate> queryMovieRateByAuthor(Rate rate) {
         return rateMapper.queryMovieRateByAuthor(rate);
+    }
+    public List<Rate> queryBookRateByAuthor(Rate rate) { return rateMapper.queryBookRateByAuthor(rate); }
+    public List<Rate> queryTravelRateByAuthor(Rate rate) {
+        return rateMapper.queryTravelRateByAuthor(rate);
     }
 
     //query rate by rateId

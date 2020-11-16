@@ -24,8 +24,6 @@
                         <small>Movie List</small>
                     </h1>
 
-
-
                 </div>
             </div>
         </div>

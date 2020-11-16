@@ -11,14 +11,50 @@
         where rateCategoryId = #{rateCategoryId};
     </select>
 
+    <!-- query book rate according to categoryId -->
+    <select id="queryBookRate" resultType="Rate">
+        select * from grouphub.rate
+        where rateCategoryId = #{rateCategoryId};
+    </select>
+
+    <!-- query travel rate according to categoryId -->
+    <select id="queryTravelRate" resultType="Rate">
+        select * from grouphub.rate
+        where rateCategoryId = #{rateCategoryId};
+    </select>
+
     <!-- add a rate -->
     <insert id="addRate" parameterType="Rate">
         insert into grouphub.rate(rateAuthor, rateTitle, rateScore, rateCreateTime, rateContent, rateCategoryType, rateCategoryId, rateTotalLike, rateTotalReply)
         value (#{rateAuthor}, #{rateTitle}, #{rateScore}, #{rateCreateTime}, #{rateContent}, #{rateCategoryType}, #{rateCategoryId}, #{rateTotalLike}, #{rateTotalReply});
     </insert>
 
+    <!-- add a rate -->
+    <insert id="addRateForBook" parameterType="Rate">
+        insert into grouphub.rate(rateAuthor, rateTitle, rateScore, rateCreateTime, rateContent, rateCategoryType, rateCategoryId, rateTotalLike, rateTotalReply)
+        value (#{rateAuthor}, #{rateTitle}, #{rateScore}, #{rateCreateTime}, #{rateContent}, #{rateCategoryType}, #{rateCategoryId}, #{rateTotalLike}, #{rateTotalReply});
+    </insert>
+
+    <!-- add a rate -->
+    <insert id="addRateForTravel" parameterType="Rate">
+        insert into grouphub.rate(rateAuthor, rateTitle, rateScore, rateCreateTime, rateContent, rateCategoryType, rateCategoryId, rateTotalLike, rateTotalReply)
+        value (#{rateAuthor}, #{rateTitle}, #{rateScore}, #{rateCreateTime}, #{rateContent}, #{rateCategoryType}, #{rateCategoryId}, #{rateTotalLike}, #{rateTotalReply});
+    </insert>
+
     <!-- query movie rate according to author and movie -->
     <select id="queryMovieRateByAuthor" resultType="Rate" parameterType="Rate">
+        select * from grouphub.rate
+        where rateAuthor = #{rateAuthor} and rateCategoryType = #{rateCategoryType} and rateCategoryId = #{rateCategoryId};
+    </select>
+
+    <!-- query book rate according to author and movie -->
+    <select id="queryBookRateByAuthor" resultType="Rate" parameterType="Rate">
+        select * from grouphub.rate
+        where rateAuthor = #{rateAuthor} and rateCategoryType = #{rateCategoryType} and rateCategoryId = #{rateCategoryId};
+    </select>
+
+    <!-- query travel rate according to author and movie -->
+    <select id="queryTravelRateByAuthor" resultType="Rate" parameterType="Rate">
         select * from grouphub.rate
         where rateAuthor = #{rateAuthor} and rateCategoryType = #{rateCategoryType} and rateCategoryId = #{rateCategoryId};
     </select>
