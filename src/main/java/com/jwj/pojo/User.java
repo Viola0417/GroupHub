@@ -9,6 +9,18 @@ public class User {
     private int noOfFriends;
     private int noOfGroups;
 
+    public User() {
+    }
+
+    public User(String userName, String userPassword, String email) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.email = email;
+        this.status = 1;
+        this.noOfFriends = 0;
+        this.noOfGroups = 0;
+    }
+
     public String getUserName() {
         return userName;
     }

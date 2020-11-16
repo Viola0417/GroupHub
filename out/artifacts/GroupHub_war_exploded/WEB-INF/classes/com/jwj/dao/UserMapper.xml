@@ -32,4 +32,16 @@
     <select id="checkUserActivated" parameterType="String" resultType="Integer">
         select status from grouphub.user where userName = #{userName};
     </select>
+
+    <!--check whether user email in user table-->
+    <select id="checkEmailExist" parameterType="String" resultType="Integer">
+        select count(email) from grouphub.user
+        where email = #{email};
+    </select>
+
+    <!--add new user-->
+    <insert id="addUser" parameterType="User">
+        insert into grouphub.user(userName, userPassword, email, status, noOfFriends, noOfGroups)
+        value (#{userName}, #{userPassword}, #{email}, 1, 0, 0);
+    </insert>
 </mapper>

@@ -76,4 +76,37 @@ public class UserController {
     public String toUserFunction() {
         return "userFunction";
     }
+
+    @RequestMapping("/toUserSignUp")
+    public String toUserSignUp() {
+        return "userSignUp";
+    }
+
+    @RequestMapping("signUp")
+    public String signUp(User user, Model model) {
+        String userName = user.getUserName();
+        String userPassword = user.getUserPassword();
+        String userEmail = user.getEmail();
+        System.out.println("userName => " + userName);
+        System.out.println("userPassword => " + userPassword);
+        System.out.println("userEmail => " + userEmail);
+        String errorMsg = "";
+        if (userService.checkUserExist(userName)) {
+            errorMsg = "This username has been registered!";
+            model.addAttribute("errorMsg", errorMsg);
+            return "userSignUp";
+        } else if (userService.checkEmailExist(userEmail)) {
+            errorMsg = "This email address has been registered!";
+            model.addAttribute("errorMsg", errorMsg);
+            return "userSignUp";
+        }
+        userService.addUser(new User(userName, userPassword, userEmail));
+        model.addAttribute("successMsg", "Sign up successfully! Click to sign in.");
+        return "userSignUp";
+    }
+
+    @RequestMapping("/toUserIndex")
+    public String toUserIndex() {
+        return "userIndex";
+    }
 }

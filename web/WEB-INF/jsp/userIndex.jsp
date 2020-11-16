@@ -29,6 +29,7 @@ Welcome to GroupHub!
     <span style="color:red;font-weight: bold">${error}</span>
 </form>
 
+    Have no account now? <a href="${pageContext.request.contextPath}/user/toUserSignUp">Sign up</a> first!
 <h3>
     <a href="${pageContext.request.contextPath}/admin/toAdminLogIn">admin</a>
 </h3>

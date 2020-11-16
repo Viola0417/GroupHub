@@ -19,4 +19,10 @@ public interface UserMapper {
     //check whether this user is activate
     //1 means activate, 0 means deleted
     int checkUserActivated(String userName);
+
+    //check whether email in user table
+    int checkEmailExist(String email);
+
+    //add new user
+    int addUser(User user);
 }

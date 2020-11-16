@@ -35,4 +35,14 @@ public class UserServiceImpl implements UserService{
     public boolean checkUserActivated(String userName) {
         return userMapper.checkUserActivated(userName) == 1;
     }
+
+    //check whether email in user table
+    public boolean checkEmailExist(String email) {
+        return userMapper.checkEmailExist(email) > 0;
+    }
+
+    //add new user
+    public int addUser(User user) {
+        return userMapper.addUser(user);
+    }
 }
