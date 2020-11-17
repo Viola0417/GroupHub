@@ -151,7 +151,6 @@ public class RateController {
         return "addMovieRate";
     }
 
-
     @Autowired
     @Qualifier("BookServiceImpl")
     private BookService bookService;
@@ -173,7 +172,7 @@ public class RateController {
             String avgScoreStr = String.format("%.2f", avgScore);
             bookScore = "average rate score: " + avgScoreStr;
         } else {
-            bookScore = "This movie has no rate now!";
+            bookScore = "This book has no rate now!";
         }
 
         model.addAttribute("rateList", rateList);

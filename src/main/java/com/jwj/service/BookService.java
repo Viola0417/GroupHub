@@ -10,7 +10,7 @@ public interface BookService {
     List<Book> queryAllBook();
 
     //add a new book
-    int addBook(Book movie);
+    int addBook(Book book);
 
     //get book author by its name
     String getAuthorByName(String bookName);
