@@ -24,6 +24,10 @@ public class BookController {
     public String toBook(Model model) {
         List<Book> bookList = bookService.queryAllBook();
         model.addAttribute("bookList", bookList);
+        System.out.println("admin query book!");
+        for (Book b: bookList) {
+            System.out.println(b.toString());
+        }
         return "adminBook";
     }
 
@@ -65,6 +69,9 @@ public class BookController {
 
     @RequestMapping("/updateBook")
     public String updateBook(Book book) {
+        Book originalBook = bookService.queryBookById(book.getBookId());
+        book.setTotalRateNumber(originalBook.getTotalRateNumber());
+        book.setTotalRateScore(originalBook.getTotalRateScore());
         bookService.updateBook(book);
         return "redirect:/book/toBook";
     }

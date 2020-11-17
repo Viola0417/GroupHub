@@ -25,6 +25,10 @@
         }
     </script>
 
+    <form action="/admin/toAdminFunction" method="post">
+        <button type="submit">return</button>
+    </form>
+
     <!--Modify Password Form-->
     <form name="modifyPasswordForm" action="${pageContext.request.contextPath}/admin/modifyPassword" method="post"
           onsubmit="return validateFormNotNull()">

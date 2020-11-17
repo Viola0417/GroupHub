@@ -50,4 +50,9 @@ public class RateServiceImpl implements RateService {
     public int updateRate(Rate rate) {
         return rateMapper.updateRate(rate);
     }
+
+    //delete rate
+    public int deleteRateById(int rateId) {
+        return rateMapper.deleteRateById(rateId);
+    }
 }

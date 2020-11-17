@@ -42,7 +42,7 @@
 
     <div class="row clearfix">
         <c:forEach var="rate" items="${requestScope.get('rateList')}">
-            <div>
+            <div class="block">
                 ${rate.getRateScore()}/5<br>
                 <b>${rate.getRateTitle()}</b><br>
                 ${rate.getRateAuthor()}&nbsp;&nbsp;&nbsp;&nbsp;${rate.getRateCreateTime()}<br>

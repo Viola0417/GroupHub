@@ -72,4 +72,13 @@ public class RateServiceTest {
         rateServiceImpl.updateRate(newRate);
         System.out.println(rateServiceImpl.queryRateById(id).toString());
     }
+
+    @Test
+    public void testDeleteRate() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        RateService rateServiceImpl = (RateService) context.getBean("RateServiceImpl");
+        int id = 23;
+        rateServiceImpl.deleteRateById(id);
+        System.out.println("delete completion!");
+    }
 }

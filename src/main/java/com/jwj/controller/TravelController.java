@@ -63,6 +63,9 @@ public class TravelController {
 
     @RequestMapping("/updateTravel")
     public String updateTravel(Travel travel) {
+        Travel originalTravel = travelService.queryTravelById(travel.getTravelId());
+        travel.setTotalRateNumber(originalTravel.getTotalRateNumber());
+        travel.setTotalRateScore(originalTravel.getTotalRateScore());
         travelService.updateTravel(travel);
         return "redirect:/travel/toTravel";
     }

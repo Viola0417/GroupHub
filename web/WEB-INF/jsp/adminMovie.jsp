@@ -11,6 +11,10 @@
 
 <body>
 
+    <form action="/admin/toAdminFunction" method="post">
+        <button type="submit">return</button>
+    </form>
+
     <div class="container">
 
         <div class="row clearfix">
@@ -24,19 +28,9 @@
         </div>
 
         <div class="row">
-
             <div class="col-md-4 column">
                 <a class="btn btn-primary" href="${pageContext.request.contextPath}/movie/toAddMovie">add movie</a>
             </div>
-
-            <!--
-            <div class="col-md-8 column">
-                <form action="${pageContext.request.contextPath}/movie/queryMovie" method="post" style="float:right">
-                    <input type="text" name="queryBookName" class="form-control" placeholder="Movie Name">
-                    <input type="submit" value="Query" class="btn btn-primary">
-                </form>
-            </div>
-            -->
         </div>
 
         <div class="row clearfix">
@@ -72,7 +66,8 @@
 
                             <td>
                                 <a href="${pageContext.request.contextPath}/movie/toUpdateMovie?movieId=${movie.getMovieId()}">Update</a> |
-                                <a href="${pageContext.request.contextPath}/movie/deleteMovie?movieId=${movie.getMovieId()}">Delete</a>
+                                <a href="${pageContext.request.contextPath}/movie/deleteMovie?movieId=${movie.getMovieId()}">Delete</a> |
+                                <a href="${pageContext.request.contextPath}/rate/toDeleteMovieRate?movieId=${movie.getMovieId()}">Manage Rate</a>
                             </td>
 
                         </tr>

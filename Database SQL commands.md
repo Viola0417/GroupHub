@@ -74,3 +74,10 @@ Insert into rate (rateAuthor, rateTitle, rateScore, rateCreateTime, rateContent,
 Insert into rate (rateAuthor, rateTitle, rateScore, rateCreateTime, rateContent, rateCategoryType, rateCategoryId, rateTotalLike, rateTotalReply) VALUES 
 ("Ben", "One of the best movie ever made", 5.0, '2020-11-07 08:30:00', "I avoided watching this film for the longest time. Long before it was even released I had dismissed it as an over-hyped, over-blown, overly romanticized piece of Hollywood schmaltz, and I wanted nothing to do with it.", 
 1, 1, 0, 0);
+
+Insert into rate (rateAuthor, rateTitle, rateScore, rateCreateTime, rateContent, rateCategoryType, rateCategoryId, rateTotalLike, rateTotalReply) VALUES 
+("test", "test", 5.0, '2020-11-07 08:30:00', "test", 1, 1, 0, 0);
+
+----
+
+## Comment TABLE 

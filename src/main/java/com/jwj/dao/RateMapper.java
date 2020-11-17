@@ -26,4 +26,7 @@ public interface RateMapper {
 
     //update rate
     int updateRate(Rate rate);
+
+    //delete rate
+    int deleteRateById(int rateId);
 }

@@ -27,6 +27,10 @@
         }
     </script>
 
+    <form action="/movie/toMovie" method="post">
+        <button type="submit">return</button>
+    </form>
+
     <div class="container">
 
         <div class="row clearfix">

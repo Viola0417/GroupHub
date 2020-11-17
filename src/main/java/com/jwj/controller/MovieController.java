@@ -65,6 +65,9 @@ public class MovieController {
 
     @RequestMapping("/updateMovie")
     public String updateMovie(Movie movie) {
+        Movie originalMovie = movieService.queryMovieById(movie.getMovieId());
+        movie.setTotalRateNumber(originalMovie.getTotalRateNumber());
+        movie.setTotalRateScore(originalMovie.getTotalRateScore());
         movieService.updateMovie(movie);
         return "redirect:/movie/toMovie";
     }
