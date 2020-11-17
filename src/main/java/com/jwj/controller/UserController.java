@@ -109,4 +109,10 @@ public class UserController {
     public String toUserIndex() {
         return "userIndex";
     }
+
+    @RequestMapping("/logOff")
+    public String logOff(HttpSession session) {
+        session.removeAttribute("userName");
+        return "userIndex";
+    }
 }

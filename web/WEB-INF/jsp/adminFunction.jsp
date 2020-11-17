@@ -22,5 +22,9 @@ Hi ${adminName}!<br><br><br>
     <button type="submit">Travel</button>
 </form>
 
+<form action="/admin/logOff" method="post">
+    <button type="submit">Log Off</button>
+</form>
+
 </body>
 </html>

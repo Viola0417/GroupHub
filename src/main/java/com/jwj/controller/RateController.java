@@ -45,7 +45,7 @@ public class RateController {
         session.setAttribute("movieId", movieId);
         List<Rate> rateList = rateService.queryMovieRate(movieId);
         String movieTitle = currentMovie.getMovieName() + " (" + Integer.toString(currentMovie.getMovieYear()) + ")";
-        String movieReviews= currentMovie.getTotalRateNumber() + " reviews";
+        String movieReviews = currentMovie.getTotalRateNumber() + " reviews";
         String movieScore = "";
 
         if (currentMovie.getTotalRateNumber() > 0) {
@@ -107,8 +107,9 @@ public class RateController {
         rateService.addRate(rate);
 
         //after add new rate, we update this movie's total rate number and total score
+        System.out.println("current score:" + Double.parseDouble(rateScore));
         Movie movie = movieService.queryMovieById(movieId);
-        movie.setTotalRateScore(movie.getTotalRateScore() + Integer.parseInt(rateScore));
+        movie.setTotalRateScore(movie.getTotalRateScore() + Double.parseDouble(rateScore));
         movie.setTotalRateNumber(movie.getTotalRateNumber() + 1);
         movieService.updateMovie(movie);
 
@@ -152,6 +153,53 @@ public class RateController {
     }
 
 
+    @RequestMapping("/toDeleteMovieRate")
+    public String toDeleteMovieRate(int movieId, Model model, HttpSession session) {
+        Movie currentMovie = movieService.queryMovieById(movieId);
+        List<Rate> movieRateList = rateService.queryMovieRate(movieId);
+        for (Rate r: movieRateList) {
+            System.out.println(r.toString());
+        }
+        String movieTitle = currentMovie.getMovieName() + " (" + Integer.toString(currentMovie.getMovieYear()) + ")";
+        String movieReviews = currentMovie.getTotalRateNumber() + " reviews";
+        String movieScore = "";
+
+        if (currentMovie.getTotalRateNumber() > 0) {
+            Double avgScore = currentMovie.getTotalRateScore() / currentMovie.getTotalRateNumber();
+            String avgScoreStr = String.format("%.2f", avgScore);
+            movieScore = "average rate score: " + avgScoreStr;
+        } else {
+            movieScore = "This movie has no rate now!";
+        }
+
+        session.setAttribute("movieId", movieId);
+        model.addAttribute("movieTitle", movieTitle);
+        model.addAttribute("movieReviews", movieReviews);
+        model.addAttribute("movieScore", movieScore);
+        model.addAttribute("movieRateList", movieRateList);
+        return "adminMovieRate";
+    }
+
+    @RequestMapping("/deleteMovieRate")
+    public String deleteMovieRate(int rateId, Model model, HttpSession session) {
+        System.out.println("rate to be deleted => " + rateId);
+        Rate rate = rateService.queryRateById(rateId);
+        Double originalRateScore = rate.getRateScore();
+        System.out.println(rate.toString());
+        int currentMovieId = (Integer) session.getAttribute("movieId");
+        Movie movie = movieService.queryMovieById(currentMovieId);
+        Double originalTotalScore = movie.getTotalRateScore();
+        Double currentTotalScore = originalTotalScore - originalRateScore;
+        movie.setTotalRateScore(currentTotalScore);
+        movie.setTotalRateNumber(movie.getTotalRateNumber() - 1);
+        movieService.updateMovie(movie);
+        rateService.deleteRateById(rateId);
+        String delMovieRateMsg = "successfully delete!";
+        model.addAttribute("delMovieRateMsg", delMovieRateMsg);
+        return "adminMovieRate";
+    }
+
+
     @Autowired
     @Qualifier("BookServiceImpl")
     private BookService bookService;
@@ -165,7 +213,7 @@ public class RateController {
         session.setAttribute("bookId", bookId);
         List<Rate> rateList = rateService.queryBookRate(bookId);
         String bookTitle = currentBook.getBookName() + " (" + currentBook.getBookAuthor() + ")";
-        String bookReviews= currentBook.getTotalRateNumber() + " reviews";
+        String bookReviews = currentBook.getTotalRateNumber() + " reviews";
         String bookScore = "";
 
         if (currentBook.getTotalRateNumber() > 0) {
@@ -228,7 +276,7 @@ public class RateController {
 
         //after add new rate, we update this book's total rate number and total score
         Book book = bookService.queryBookById(bookId);
-        book.setTotalRateScore(book.getTotalRateScore() + Integer.parseInt(rateScore));
+        book.setTotalRateScore(book.getTotalRateScore() + Double.parseDouble(rateScore));
         book.setTotalRateNumber(book.getTotalRateNumber() + 1);
         bookService.updateBook(book);
 
@@ -347,7 +395,7 @@ public class RateController {
 
         //after add new rate, we update this travel's total rate number and total score
         Travel travel = travelService.queryTravelById(travelId);
-        travel.setTotalRateScore(travel.getTotalRateScore() + Integer.parseInt(rateScore));
+        travel.setTotalRateScore(travel.getTotalRateScore() + Double.parseDouble(rateScore));
         travel.setTotalRateNumber(travel.getTotalRateNumber() + 1);
         travelService.updateTravel(travel);
 

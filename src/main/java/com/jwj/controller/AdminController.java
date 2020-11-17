@@ -78,11 +78,6 @@ public class AdminController {
         return "adminFunction";
     }
 
-    @RequestMapping("/toAdminAddGroup")
-    public String toAdminAddGroup() {
-        return "adminAddGroup";
-    }
-
     @RequestMapping("/toBook")
     public String toBook() {
         return "adminBook";
@@ -91,5 +86,16 @@ public class AdminController {
     @RequestMapping("/toTravel")
     public String toTravel() {
         return "adminTravel";
+    }
+
+    @RequestMapping("/logOff")
+    public String logOff(HttpSession session) {
+        session.removeAttribute("adminName");
+        return "userIndex";
+    }
+
+    @RequestMapping("toIndex")
+    public String toIndex() {
+        return "userIndex";
     }
 }

@@ -4,6 +4,11 @@
     <title>Admin Log in</title>
 </head>
 <body>
+
+<form action="/admin/toIndex" method="post">
+    <button type="submit">return</button>
+</form>
+
 <h2>Administrator Log in</h2>
 <div>
     <script type="text/javascript">

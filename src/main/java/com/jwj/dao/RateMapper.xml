@@ -71,4 +71,8 @@
         set rateTitle = #{rateTitle}, rateScore = #{rateScore}, rateCreateTime = #{rateCreateTime}, rateContent = #{rateContent}
         where rateId = #{rateId};
     </update>
+
+    <delete id="deleteRateById" parameterType="Integer">
+        delete from grouphub.rate where rateId = #{rateId};
+    </delete>
 </mapper>
