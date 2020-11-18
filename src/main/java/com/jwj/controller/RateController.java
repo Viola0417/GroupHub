@@ -221,7 +221,7 @@ public class RateController {
             String avgScoreStr = String.format("%.2f", avgScore);
             bookScore = "average rate score: " + avgScoreStr;
         } else {
-            bookScore = "This movie has no rate now!";
+            bookScore = "This book has no rate now!";
         }
 
         model.addAttribute("rateList", rateList);
@@ -318,6 +318,53 @@ public class RateController {
         model.addAttribute("successMsg", successMsg);
         return "addBookRate";
     }
+
+    @RequestMapping("/toDeleteBookRate")
+    public String toDeleteBookRate(int bookId, Model model, HttpSession session) {
+        Book currentBook = bookService.queryBookById(bookId);
+        List<Rate> bookRateList = rateService.queryBookRate(bookId);
+        for (Rate r: bookRateList) {
+            System.out.println(r.toString());
+        }
+        String bookTitle = currentBook.getBookName() + " (" + currentBook.getBookAuthor() + ")";
+        String bookReviews = currentBook.getTotalRateNumber() + " reviews";
+        String bookScore = "";
+
+        if (currentBook.getTotalRateNumber() > 0) {
+            Double avgScore = currentBook.getTotalRateScore() / currentBook.getTotalRateNumber();
+            String avgScoreStr = String.format("%.2f", avgScore);
+            bookScore = "average rate score: " + avgScoreStr;
+        } else {
+            bookScore = "This book has no rate now!";
+        }
+
+        session.setAttribute("bookId", bookId);
+        model.addAttribute("bookTitle", bookTitle);
+        model.addAttribute("bookReviews", bookReviews);
+        model.addAttribute("bookScore", bookScore);
+        model.addAttribute("bookRateList", bookRateList);
+        return "adminBookRate";
+    }
+
+    @RequestMapping("/deleteBookRate")
+    public String deleteBookRate(int rateId, Model model, HttpSession session) {
+        System.out.println("rate to be deleted => " + rateId);
+        Rate rate = rateService.queryRateById(rateId);
+        Double originalRateScore = rate.getRateScore();
+        System.out.println(rate.toString());
+        int currentBookId = (Integer) session.getAttribute("bookId");
+        Book book = bookService.queryBookById(currentBookId);
+        Double originalTotalScore = book.getTotalRateScore();
+        Double currentTotalScore = originalTotalScore - originalRateScore;
+        book.setTotalRateScore(currentTotalScore);
+        book.setTotalRateNumber(book.getTotalRateNumber() - 1);
+        bookService.updateBook(book);
+        rateService.deleteRateById(rateId);
+        String delBookRateMsg = "successfully delete!";
+        model.addAttribute("delBookRateMsg", delBookRateMsg);
+        return "adminBookRate";
+    }
+
 
     @Autowired
     @Qualifier("TravelServiceImpl")
@@ -436,5 +483,51 @@ public class RateController {
         String successMsg = "successfully submit your rate!";
         model.addAttribute("successMsg", successMsg);
         return "addTravelRate";
+    }
+
+    @RequestMapping("/toDeleteTravelRate")
+    public String toDeleteTravelRate(int travelId, Model model, HttpSession session) {
+        Travel currentTravel = travelService.queryTravelById(travelId);
+        List<Rate> travelRateList = rateService.queryTravelRate(travelId);
+        for (Rate r: travelRateList) {
+            System.out.println(r.toString());
+        }
+        String travelTitle = currentTravel.getTravelName() + " (" + currentTravel.getTravelCountry() + ")";
+        String travelReviews = currentTravel.getTotalRateNumber() + " reviews";
+        String travelScore = "";
+
+        if (currentTravel.getTotalRateNumber() > 0) {
+            Double avgScore = currentTravel.getTotalRateScore() / currentTravel.getTotalRateNumber();
+            String avgScoreStr = String.format("%.2f", avgScore);
+            travelScore = "average rate score: " + avgScoreStr;
+        } else {
+            travelScore = "This travel has no rate now!";
+        }
+
+        session.setAttribute("travelId", travelId);
+        model.addAttribute("travelTitle", travelTitle);
+        model.addAttribute("travelReviews", travelReviews);
+        model.addAttribute("travelScore", travelScore);
+        model.addAttribute("travelRateList", travelRateList);
+        return "adminTravelRate";
+    }
+
+    @RequestMapping("/deleteTravelRate")
+    public String deleteTravelRate(int rateId, Model model, HttpSession session) {
+        System.out.println("rate to be deleted => " + rateId);
+        Rate rate = rateService.queryRateById(rateId);
+        Double originalRateScore = rate.getRateScore();
+        System.out.println(rate.toString());
+        int currentTravelId = (Integer) session.getAttribute("travelId");
+        Travel travel = travelService.queryTravelById(currentTravelId);
+        Double originalTotalScore = travel.getTotalRateScore();
+        Double currentTotalScore = originalTotalScore - originalRateScore;
+        travel.setTotalRateScore(currentTotalScore);
+        travel.setTotalRateNumber(travel.getTotalRateNumber() - 1);
+        travelService.updateTravel(travel);
+        rateService.deleteRateById(rateId);
+        String delTravelRateMsg = "successfully delete!";
+        model.addAttribute("delTravelRateMsg", delTravelRateMsg);
+        return "adminTravelRate";
     }
 }

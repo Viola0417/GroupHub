@@ -8,46 +8,50 @@
 </head>
 <body>
 
-<script type="text/javascript">
-    function validateFormNotNull() {
-        var bookName = document.forms["addBookForm"]["bookName"].value;
-        var bookAuthor = document.forms["addBookForm"]["bookAuthor"].value;
-        var bookDescription = document.forms["addBookForm"]["bookDescription"].value;
-        if (bookName == null || bookName == "") {
-            alert("book name can not be empty!");
-            return false;
-        } else if (bookAuthor == null || bookAuthor == "") {
-            alert("book author can not be empty!");
-            return false;
-        } else if (bookDescription == null || bookDescription == "") {
-            alert("book description can not be empty!");
-            return false;
+    <script type="text/javascript">
+        function validateFormNotNull() {
+            var bookName = document.forms["addBookForm"]["bookName"].value;
+            var bookAuthor = document.forms["addBookForm"]["bookAuthor"].value;
+            var bookDescription = document.forms["addBookForm"]["bookDescription"].value;
+            if (bookName == null || bookName == "") {
+                alert("book name can not be empty!");
+                return false;
+            } else if (bookAuthor == null || bookAuthor == "") {
+                alert("book author can not be empty!");
+                return false;
+            } else if (bookDescription == null || bookDescription == "") {
+                alert("book description can not be empty!");
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-</script>
+    </script>
 
-<div class="container">
-
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <div class="page-header">
-                <h1>
-                    <small>update book</small>
-                </h1>
-            </div>
-        </div>
-    </div>
-    <form action="${pageContext.request.contextPath}/book/updateBook" method="post">
-        <input type="hidden" name="bookId" value="${queryBook.bookId}">
-
-        book title：<input type="text" name="bookName" value="${queryBook.bookName}"><br><br><br>
-        book author：<input type="text" name="bookAuthor" value="${queryBook.bookAuthor}"><br><br><br>
-        description：<br><textarea name="description" rows="10" cols="100">${queryBook.description}</textarea><br><br><br>
-        <input type="submit" value="update">
+    <form action="/book/toBook" method="post">
+        <button type="submit">return</button>
     </form>
 
-</div>
+    <div class="container">
+
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="page-header">
+                    <h1>
+                        <small>update book</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <form action="${pageContext.request.contextPath}/book/updateBook" method="post">
+            <input type="hidden" name="bookId" value="${queryBook.bookId}">
+
+            book title：<input type="text" name="bookName" value="${queryBook.bookName}"><br><br><br>
+            book author：<input type="text" name="bookAuthor" value="${queryBook.bookAuthor}"><br><br><br>
+            description：<br><textarea name="description" rows="10" cols="100">${queryBook.description}</textarea><br><br><br>
+            <input type="submit" value="update">
+        </form>
+
+    </div>
 </body>
 </html>
 

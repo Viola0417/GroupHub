@@ -8,19 +8,19 @@
     <!-- query movie rate according to categoryId -->
     <select id="queryMovieRate" resultType="Rate">
         select * from grouphub.rate
-        where rateCategoryId = #{rateCategoryId};
+        where rateCategoryId = #{rateCategoryId} and rateCategoryType = 1;
     </select>
 
     <!-- query book rate according to categoryId -->
     <select id="queryBookRate" resultType="Rate">
         select * from grouphub.rate
-        where rateCategoryId = #{rateCategoryId};
+        where rateCategoryId = #{rateCategoryId} and rateCategoryType = 2;
     </select>
 
     <!-- query travel rate according to categoryId -->
     <select id="queryTravelRate" resultType="Rate">
         select * from grouphub.rate
-        where rateCategoryId = #{rateCategoryId};
+        where rateCategoryId = #{rateCategoryId} and rateCategoryType = 3;
     </select>
 
     <!-- add a rate -->

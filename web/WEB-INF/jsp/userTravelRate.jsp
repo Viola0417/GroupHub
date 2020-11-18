@@ -25,7 +25,7 @@
         <div class="col-md-12 column">
             <div class="page-header">
                 <h1>
-                    <small>${travelDestination}</small>
+                    <small>${travelTitle}</small>
                 </h1>
 
                 <div class="col-md-4 column">
