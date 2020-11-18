@@ -8,45 +8,49 @@
 </head>
 <body>
 
-<script type="text/javascript">
-    function validateFormNotNull() {
-        var travelName = document.forms["addTravelForm"]["travelName"].value;
-        var travelCountry = document.forms["addTravelForm"]["travelCountry"].value;
-        var travelDescription = document.forms["addTravelForm"]["travelDescription"].value;
-        if (travelName == null || travelName == "") {
-            alert("travel destination can not be empty!");
-            return false;
-        } else if (travelCountry == null || travelCountry == "") {
-            alert("travel country can not be empty!");
-            return false;
-        } else if (travelDescription == null || travelDescription == "") {
-            alert("travel description can not be empty!");
-            return false;
+    <script type="text/javascript">
+        function validateFormNotNull() {
+            var travelName = document.forms["addTravelForm"]["travelName"].value;
+            var travelCountry = document.forms["addTravelForm"]["travelCountry"].value;
+            var travelDescription = document.forms["addTravelForm"]["travelDescription"].value;
+            if (travelName == null || travelName == "") {
+                alert("travel destination can not be empty!");
+                return false;
+            } else if (travelCountry == null || travelCountry == "") {
+                alert("travel country can not be empty!");
+                return false;
+            } else if (travelDescription == null || travelDescription == "") {
+                alert("travel description can not be empty!");
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-</script>
+    </script>
 
-<div class="container">
-
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <div class="page-header">
-                <h1>
-                    <small>update travel</small>
-                </h1>
-            </div>
-        </div>
-    </div>
-    <form action="${pageContext.request.contextPath}/travel/updateTravel" method="post">
-        <input type="hidden" name="travelId" value="${queryTravel.travelId}">
-
-        travel destination：<input type="text" name="travelName" value="${queryTravel.travelName}"><br><br><br>
-        travel country：<input type="text" name="travelCountry" value="${queryTravel.travelCountry}"><br><br><br>
-        description：<br><textarea name="description" rows="10" cols="100">${queryTravel.description}</textarea><br><br><br>
-        <input type="submit" value="update">
+    <form action="/travel/toTravel" method="post">
+        <button type="submit">return</button>
     </form>
 
-</div>
+    <div class="container">
+
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="page-header">
+                    <h1>
+                        <small>update travel</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <form action="${pageContext.request.contextPath}/travel/updateTravel" method="post">
+            <input type="hidden" name="travelId" value="${queryTravel.travelId}">
+
+            travel destination：<input type="text" name="travelName" value="${queryTravel.travelName}"><br><br><br>
+            travel country：<input type="text" name="travelCountry" value="${queryTravel.travelCountry}"><br><br><br>
+            description：<br><textarea name="description" rows="10" cols="100">${queryTravel.description}</textarea><br><br><br>
+            <input type="submit" value="update">
+        </form>
+
+    </div>
 </body>
 </html>

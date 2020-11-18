@@ -9,6 +9,11 @@
 </head>
 
 <body>
+
+    <form action="/admin/toAdminFunction" method="post">
+        <button type="submit">return</button>
+    </form>
+
     <div class="container">
 
         <div class="row clearfix">
@@ -22,11 +27,9 @@
         </div>
 
         <div class="row">
-
             <div class="col-md-4 column">
                 <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/toAddBook">add book</a>
             </div>
-
         </div>
 
         <div class="row clearfix">
@@ -63,6 +66,7 @@
                             <td>
                                 <a href="${pageContext.request.contextPath}/book/toUpdateBook?bookId=${book.getBookId()}">Update</a> |
                                 <a href="${pageContext.request.contextPath}/book/deleteBook?bookId=${book.getBookId()}">Delete</a>
+                                <a href="${pageContext.request.contextPath}/rate/toDeleteBookRate?bookId=${book.getBookId()}">Manage Rate</a>
                             </td>
 
                         </tr>
