@@ -12,7 +12,6 @@ import Layout from './Layout';
 import Menu from './Menu';
 import { Dashboard } from './dashboard';
 import customRoutes from './routes';
-import translations from './i18n';
 
 import { VisitorList, VisitorEdit, VisitorDelete, VisitorIcon } from './visitors';
 import { CommandList, CommandEdit, CommandIcon } from './commands';
