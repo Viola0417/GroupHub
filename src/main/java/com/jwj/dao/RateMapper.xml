@@ -75,4 +75,11 @@
     <delete id="deleteRateById" parameterType="Integer">
         delete from grouphub.rate where rateId = #{rateId};
     </delete>
+
+    <!-- update total reply + 1 -->
+    <update id="addCommentById" parameterType="Integer">
+        update grouphub.rate
+        set rateTotalReply = rateTotalReply + 1
+        where rateId = #{rateId};
+    </update>
 </mapper>

@@ -4,10 +4,7 @@ import com.jwj.pojo.Movie;
 import com.jwj.pojo.Book;
 import com.jwj.pojo.Travel;
 import com.jwj.pojo.Rate;
-import com.jwj.service.MovieService;
-import com.jwj.service.BookService;
-import com.jwj.service.TravelService;
-import com.jwj.service.RateService;
+import com.jwj.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -32,6 +29,10 @@ public class RateController {
     @Autowired
     @Qualifier("MovieServiceImpl")
     private MovieService movieService;
+
+    @Autowired
+    @Qualifier("CommentServiceImpl")
+    private CommentService commentService;
 
     @RequestMapping("/toMovieRate")
     public String toMovieRate(@RequestParam("movieId") String movieIdStr, Model model, HttpSession session) {

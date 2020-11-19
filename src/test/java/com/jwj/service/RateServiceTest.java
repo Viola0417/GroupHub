@@ -81,4 +81,13 @@ public class RateServiceTest {
         rateServiceImpl.deleteRateById(id);
         System.out.println("delete completion!");
     }
+
+    @Test
+    public void testAddCommentById() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        RateService rateServiceImpl = (RateService) context.getBean("RateServiceImpl");
+        int id = 38;
+        rateServiceImpl.addCommentById(id);
+        System.out.println("add comment!");
+    }
 }

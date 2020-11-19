@@ -92,3 +92,9 @@ commentRateId INT(6) NOT NULL, commentCreateTime DATETIME(2) NOT NULL, isDeleted
 
 Insert into comment (commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted) VALUES 
 ("Ben", "I agree", 0, 1, '2020-11-07 08:30:00', 0);
+
+Insert into comment (commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted) VALUES 
+("Ben", "111", 0, 38, '2020-11-07 08:30:00', 0);
+
+Insert into comment (commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted) VALUES 
+("zzx", "1111", 4, 38, '2020-11-09 08:30:00', 0);

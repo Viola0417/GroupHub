@@ -55,4 +55,9 @@ public class RateServiceImpl implements RateService {
     public int deleteRateById(int rateId) {
         return rateMapper.deleteRateById(rateId);
     }
+
+    //add comment for this rate
+    public int addCommentById(int rateId) {
+        return rateMapper.addCommentById(rateId);
+    }
 }

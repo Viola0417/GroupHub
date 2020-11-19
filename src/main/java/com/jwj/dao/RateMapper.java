@@ -29,4 +29,7 @@ public interface RateMapper {
 
     //delete rate
     int deleteRateById(int rateId);
+
+    //add comment for this rate
+    int addCommentById(int rateId);
 }

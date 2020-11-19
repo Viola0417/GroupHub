@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jwj.dao.CommentMapper">
+
+    <!-- add a new comment-->
+    <insert id="addComment" parameterType="Comment">
+        insert into grouphub.comment(commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted)
+        value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted});
+    </insert>
+
+    <!-- query how many comments this rate have -->
+    <select id="queryCommentByRateId" parameterType="Integer" resultType="Integer">
+        select count(commentId) from grouphub.comment
+        where commentRateId = #{commentRateId};
+    </select>
+
+    <!-- get all top comments -->
+    <select id="getTopCommentList" parameterType="Integer" resultType="Comment">
+        select * from grouphub.comment
+        where commentParentId = 0 and commentRateId = #{commentRateId}
+        order by commentCreateTime DESC;
+    </select>
+
+    <select id="getReplyCommentList" parameterType="Integer" resultType="Comment">
+        select * from grouphub.comment
+        where commentParentId = #{commentParentId}
+        order by commentCreateTime DESC;
+    </select>
+
+    <select id="getCommentById" parameterType="Integer" resultType="Comment">
+        select * from grouphub.comment
+        where commentId = #{commentId};
+    </select>
+</mapper>
