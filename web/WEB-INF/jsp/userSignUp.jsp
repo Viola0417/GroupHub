@@ -234,6 +234,7 @@
 
     <main class="Layout">
         <div class="LayoutContainer">
+            <h3 class="title">New Account</h3>
     <form class="login-form"  name="signUpForm" action="${pageContext.request.contextPath}/user/signUp" method="post" onsubmit="return validateFormNotNull()">
         <div class="form-group">
              <input class="form-control" type="text" id="userName" name="userName" placeholder="Please enter username"> </div>
