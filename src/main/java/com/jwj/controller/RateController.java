@@ -195,6 +195,13 @@ public class RateController {
         movie.setTotalRateNumber(movie.getTotalRateNumber() - 1);
         movieService.updateMovie(movie);
         rateService.deleteRateById(rateId);
+
+        //delete all comments to this rate
+        commentService.deleteCommentsByRateId(rateId);
+
+        //modify rate's total reply to 0
+        rateService.setRateTotalReplyZero(rateId);
+
         String delMovieRateMsg = "successfully delete!";
         model.addAttribute("delMovieRateMsg", delMovieRateMsg);
         return "adminMovieRate";

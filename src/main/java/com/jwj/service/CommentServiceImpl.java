@@ -39,4 +39,9 @@ public class CommentServiceImpl implements CommentService {
     public Comment getCommentById(int commentId) {
         return commentMapper.getCommentById(commentId);
     }
+
+    //delete all comments of a rate
+    public int deleteCommentsByRateId(int commentRateId) {
+        return commentMapper.deleteCommentsByRateId(commentRateId);
+    }
 }

@@ -82,4 +82,11 @@
         set rateTotalReply = rateTotalReply + 1
         where rateId = #{rateId};
     </update>
+
+    <!-- after delete all comments, set rateTotalReplty to be 0 -->
+    <update id="setRateTotalReplyZero" parameterType="Integer">
+        update grouphub.rate
+        set rateTotalReply = 0
+        where rateId = #{rateId};
+    </update>
 </mapper>

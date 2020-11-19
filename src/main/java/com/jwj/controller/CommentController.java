@@ -49,6 +49,38 @@ public class CommentController {
     @RequestMapping("addTopComment")
     public String addTopComment(@RequestParam("commentContent") String commentContent, @RequestParam("commentRateId") String commentRateId,
                                 HttpSession session, Model model) throws ParseException {
+        String errorMsg = "";
+        int movieIdInt = (Integer) session.getAttribute("movieId");
+        int commentId = Integer.parseInt(commentRateId);
+        System.out.println("!!!commentId!!! => " + commentId);
+        String movieId = Integer.toString(movieIdInt);
+
+        if (commentContent == null || commentContent.length() == 0) {
+            System.out.println("empty comment!");
+            errorMsg = "comment content can not be empty!";
+            model.addAttribute("errorMsg", errorMsg);
+            model.addAttribute("movieId", movieId);
+            List<Rate> rateList = rateService.queryMovieRate(movieIdInt);
+            Movie currentMovie = movieService.queryMovieById(movieIdInt);
+            String movieTitle = currentMovie.getMovieName() + " (" + Integer.toString(currentMovie.getMovieYear()) + ")";
+            String movieReviews = currentMovie.getTotalRateNumber() + " reviews";
+            String movieScore = "";
+
+            if (currentMovie.getTotalRateNumber() > 0) {
+                Double avgScore = currentMovie.getTotalRateScore() / currentMovie.getTotalRateNumber();
+                String avgScoreStr = String.format("%.2f", avgScore);
+                movieScore = "average rate score: " + avgScoreStr;
+            } else {
+                movieScore = "This movie has no rate now!";
+            }
+
+            model.addAttribute("rateList", rateList);
+            model.addAttribute("movieTitle", movieTitle);
+            model.addAttribute("movieReviews", movieReviews);
+            model.addAttribute("movieScore", movieScore);
+            return "userMovieRate";
+        }
+
         System.out.println("add top comment: rateid => " + commentRateId);
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
@@ -63,11 +95,10 @@ public class CommentController {
         commentService.addComment(comment);
         rateService.addCommentById(Integer.parseInt(commentRateId));
 
-        int movieIdInt = (Integer) session.getAttribute("movieId");
-        String movieId = Integer.toString(movieIdInt);
-        System.out.println("movieId => " + movieId);
         model.addAttribute("movieId", movieId);
-        return "redirect:/rate/toMovieRate";
+        model.addAttribute("rateId", commentRateId);
+        //return "redirect:/rate/toMovieRate";
+        return "redirect:/comment/showComment";
     }
 
     @RequestMapping("showComment")

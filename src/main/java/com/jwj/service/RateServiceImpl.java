@@ -60,4 +60,9 @@ public class RateServiceImpl implements RateService {
     public int addCommentById(int rateId) {
         return rateMapper.addCommentById(rateId);
     }
+
+    //clean total reply number
+    public int setRateTotalReplyZero(int rateId) {
+        return rateMapper.setRateTotalReplyZero(rateId);
+    }
 }

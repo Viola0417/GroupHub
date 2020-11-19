@@ -32,4 +32,7 @@ public interface RateMapper {
 
     //add comment for this rate
     int addCommentById(int rateId);
+
+    //clean total reply number
+    int setRateTotalReplyZero(int rateId);
 }

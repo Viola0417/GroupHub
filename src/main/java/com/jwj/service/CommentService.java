@@ -18,7 +18,9 @@ public interface CommentService {
     //get all reply comments of top comment
     public List<Comment> getReplyCommentList(int commentParentId);
 
-
     //get comment by commentId
     public Comment getCommentById(int commentId);
+
+    //delete all comments of a rate
+    public int deleteCommentsByRateId(int commentRateId);
 }

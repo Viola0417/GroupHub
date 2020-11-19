@@ -34,4 +34,10 @@
         select * from grouphub.comment
         where commentId = #{commentId};
     </select>
+
+    <!-- delete all Comments By Rate id -->
+    <delete id="deleteCommentsByRateId" parameterType="Integer">
+        delete from grouphub.comment
+        where commentRateId = #{commentRateId};
+    </delete>
 </mapper>

@@ -16,15 +16,6 @@
 <body>
 
 <script type="text/javascript">
-    function validateContentFormNotNull() {
-        var commentContent = document.forms["contentForm"]["commentContent"].value;
-        if (commentContent == null || commentContent == "") {
-            alert("comment content can not be empty!");
-            return false;
-        }
-        return true;
-    }
-
     function validateReplyContentFormNotNull() {
         var replyContent = document.forms["replyForm"]["replyContent"].value;
         if (replyContent== null || replyContent == "") {
@@ -61,6 +52,7 @@
     </div>
 
     <div class="row clearfix">
+        <br><span style="color:red;font-weight: bold">${errorMsg}</span>
         <c:forEach var="rate" items="${requestScope.get('rateList')}">
             <div class="block">
                 ${rate.getRateScore()}/5<br>
@@ -81,12 +73,13 @@
             </div>
 
                 <form name="contentForm" action="${pageContext.request.contextPath}/comment/addTopComment"
-                      method="post" onsubmit="return validateContentFormNotNull()">
+                      method="post">
                     <input type="text" width="400px" name="commentContent" id="commentContent" placeholder="Enter your comment..."/>
                     <input type="hidden" name="commentRateId" value="${rate.getRateId()}"/>
                     &nbsp;&nbsp;&nbsp;
                     <button type="submit">submit</button>
                 </form>
+
 
                 <c:if test="${rootRateId eq rate.getRateId()}">
                     <c:forEach items="${commentHashMap}" var="topComment">

@@ -63,4 +63,13 @@ public class CommentServiceTest {
         Comment c = commentServiceImpl.getCommentById(id);
         System.out.println(c.toString());
     }
+
+    @Test
+    public void testDeleteCommentsByRateId() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        CommentService commentServiceImpl = (CommentService) context.getBean("CommentServiceImpl");
+        int id = 38;
+        commentServiceImpl.deleteCommentsByRateId(id);
+        System.out.println("delete completion!");
+    }
 }
