@@ -8,6 +8,8 @@ public interface CommentService {
 
     //add a comment
     public int addComment(Comment comment);
+    public int addCommentForBook(Comment comment);
+    public int addCommentForTravel(Comment comment);
 
     //query comment number
     public int queryCommentByRateId(int commentRateId);

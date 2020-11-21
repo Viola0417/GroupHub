@@ -19,6 +19,12 @@ public class CommentServiceImpl implements CommentService {
     public int addComment(Comment comment) {
         return commentMapper.addComment(comment);
     }
+    public int addCommentForBook(Comment comment) {
+        return commentMapper.addCommentForBook(comment);
+    }
+    public int addCommentForTravel(Comment comment) {
+        return commentMapper.addCommentForTravel(comment);
+    }
 
     //query comment number
     public int queryCommentByRateId(int commentRateId) {

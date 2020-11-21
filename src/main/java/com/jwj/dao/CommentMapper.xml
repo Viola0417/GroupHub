@@ -11,6 +11,16 @@
         value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted});
     </insert>
 
+    <insert id="addCommentForBook" parameterType="Comment">
+        insert into grouphub.comment(commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted)
+        value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted});
+    </insert>
+
+    <insert id="addCommentForTravel" parameterType="Comment">
+        insert into grouphub.comment(commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted)
+        value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted});
+    </insert>
+
     <!-- query how many comments this rate have -->
     <select id="queryCommentByRateId" parameterType="Integer" resultType="Integer">
         select count(commentId) from grouphub.comment

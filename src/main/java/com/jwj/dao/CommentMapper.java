@@ -8,6 +8,8 @@ public interface CommentMapper {
 
     //add a comment
     int addComment(Comment comment);
+    int addCommentForBook(Comment comment);
+    int addCommentForTravel(Comment comment);
 
     //query comment number
     int queryCommentByRateId(int commentRateId);
