@@ -3,11 +3,12 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
-        <entry key="file://$PROJECT_DIR$/web/WEB-INF/jsp/addMovieRate.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/jsp" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/jsp/addBookRate.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/jsp" />
+        <entry key="file://$PROJECT_DIR$/web/WEB-INF/jsp/addMovieRate.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/jsp" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/jsp/addTravelRate.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/jsp" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/jsp/adminAddGroup.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/jsp" />
         <entry key="file://$PROJECT_DIR$/web/WEB-INF/jsp/adminLogin.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/jsp" />
+        <entry key="file://$PROJECT_DIR$/web/WEB-INF/jsp/userMovieRate.jsp" value="file://$PROJECT_DIR$/web/WEB-INF/jsp" />
       </map>
     </option>
   </component>

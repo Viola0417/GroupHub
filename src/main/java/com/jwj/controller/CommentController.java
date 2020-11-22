@@ -230,19 +230,8 @@ public class CommentController {
         List<Comment> topCommentList = commentService.getTopCommentContentList(rateId);
 
         for (Comment comment: topCommentList) {
-           // System.out.println("_______________top comment___________________");
-           // System.out.println(comment.toString());
-           // System.out.println("_______________top comment___________________");
             int commentId = comment.getCommentId();
             List<Comment> replyCommentList = commentService.getReplyCommentList(commentId);
-            /*
-            for (Comment reply: replyCommentList) {
-                System.out.println("-------reply------");
-                System.out.println(reply.toString());
-                System.out.println("-------reply------");
-            }
-
-             */
             commentHashMap.put(comment, replyCommentList);
         }
 
@@ -299,9 +288,35 @@ public class CommentController {
         int movieId = (Integer) session.getAttribute("movieId");
         model.addAttribute("movieId", movieId);
         return "redirect:/rate/toDeleteMovieRate";
-        //return "redirect:/rate/toDeleteMovieRate";
     }
 
+    @RequestMapping("/userDeleteMovieComment")
+    public String userDeleteMovieComment(int commentId, Model model, HttpSession session) {
+        Comment comment = commentService.getCommentById(commentId);
+        Rate rate = rateService.queryRateById(comment.getCommentRateId());
+
+        //if comment is top comment, delete it and all of its related comments
+        if (comment.getCommentParentId() == 0) {
+            //find all of its reply and delete
+            List<Comment> replyList = commentService.getReplyCommentList(commentId);
+            int replyNo = replyList.size();
+            for (Comment reply: replyList) {
+                commentService.deleteCommentById(reply.getCommentId());
+            }
+            //delete this top comment itself
+            commentService.deleteCommentById(commentId);
+            //update rate of this comment, make it total reply to be current - reply - topComment
+            rate.setRateTotalReply(rate.getRateTotalReply() - replyNo - 1);
+        } else {
+            //if comment is just a reply, only delete this reply
+            commentService.deleteCommentById(commentId);
+            rate.setRateTotalReply(rate.getRateTotalReply() - 1);
+        }
+
+        rateService.updateRate(rate);
+        model.addAttribute("rateId", rate.getRateId());
+        return "redirect:/comment/showComment";
+    }
 
     // This is for Book
     @Autowired

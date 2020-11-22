@@ -80,7 +80,6 @@
                     <button type="submit">submit</button>
                 </form>
 
-
                 <c:if test="${rootRateId eq rate.getRateId()}">
                     <c:forEach items="${commentHashMap}" var="topComment">
                         <c:set var="hasReply" value="0"/>
@@ -89,13 +88,22 @@
                         </c:if>
                         <b>${topComment.key.commentAuthor}</b>&nbsp;&nbsp;${topComment.key.commentCreateTime}
                         &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/toAddReply?commentParentId=${topComment.key.getCommentId()}">Reply</a>
+
+                        <c:if test="${userName eq topComment.key.commentAuthor}">
+                            &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/userDeleteMovieComment?commentId=${topComment.key.getCommentId()}">Delete</a>
+                        </c:if>
                         <br>
                         ${topComment.key.commentContent}
                         <br>
                         <c:forEach items="${topComment.value}" var="replyComment">
                             &nbsp;&nbsp;&nbsp;<b>${replyComment.commentAuthor}</b>&nbsp;&nbsp;${replyComment.commentCreateTime}
                                 &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/toAddReply?commentParentId=${replyComment.getCommentId()}">Reply</a>
-                               <br>
+
+                                <c:if test="${userName eq replyComment.commentAuthor}">
+                                    &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/userDeleteMovieComment?commentId=${replyComment.getCommentId()}">Delete</a>
+                                </c:if>
+
+                            <br>
                             &nbsp;&nbsp;&nbsp;${replyComment.commentContent}<br>
                             <c:if test="${commentParentId eq replyComment.getCommentId()}">
                                 <c:set var="hasReply" value="1"/>
