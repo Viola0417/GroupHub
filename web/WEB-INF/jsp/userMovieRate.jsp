@@ -24,6 +24,24 @@
         }
         return true;
     }
+
+    function validateUpdateReplyFormNotNull() {
+        var commentContent = document.forms["updateReplyForm"]["commentContent"].value;
+        if (commentContent == null || commentContent == "") {
+            alert("modified comment can not be empty!");
+            return false;
+        }
+        return true;
+    }
+
+    function validateUpdateCommentFormNotNull() {
+        var commentContent = document.forms["updateCommentForm"]["commentContent"].value;
+        if (commentContent == null || commentContent == "") {
+            alert("modified comment can not be empty!");
+            return false;
+        }
+        return true;
+    }
 </script>
 
 <form action="/movie/toUserMovie" method="post">
@@ -99,7 +117,8 @@
 
                         <c:choose>
                             <c:when test="${modifyComment eq 1 && topComment.key.commentId eq commentId}">
-                                <form action="/comment/userUpdateMovieComment" method="post">
+                                <form name="updateCommentForm" action="/comment/userUpdateMovieComment" method="post"
+                                onsubmit="return validateUpdateCommentFormNotNull()">
                                     <input type="text" name="commentContent" value="${topComment.key.commentContent}">
                                     <input type="hidden" name="commentId" value="${topComment.key.commentId}">
                                     &nbsp;&nbsp;
@@ -128,7 +147,8 @@
                             &nbsp;&nbsp;&nbsp;
                             <c:choose>
                                 <c:when test="${modifyComment eq 1 && replyComment.commentId eq commentId}">
-                                    <form action="/comment/userUpdateMovieComment" method="post">
+                                    <form name="updateReplyForm" action="/comment/userUpdateMovieComment" method="post"
+                                          onsubmit="return validateUpdateReplyFormNotNull()">
                                         <input type="text" name="commentContent" value="${replyComment.commentContent}">
                                         <input type="hidden" name="commentId" value="${replyComment.commentId}">
                                         &nbsp;&nbsp;
