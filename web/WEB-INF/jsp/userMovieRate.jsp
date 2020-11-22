@@ -107,6 +107,9 @@
                                 </form>
                             </c:when>
                             <c:otherwise>
+                                <c:if test="${topComment.key.isEdited == 1}">
+                                    <span style="color:blue">(Edited)</span>
+                                </c:if>
                                 ${topComment.key.commentContent}
                             </c:otherwise>
                         </c:choose>
@@ -133,6 +136,9 @@
                                     </form>
                                 </c:when>
                                 <c:otherwise>
+                                    <c:if test="${replyComment.isEdited == 1}">
+                                        <span style="color:blue">(Edited)</span>
+                                    </c:if>
                                     ${replyComment.commentContent}
                                 </c:otherwise>
                             </c:choose>

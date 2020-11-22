@@ -81,7 +81,6 @@ public class CommentController {
             return "userMovieRate";
         }
 
-        //System.out.println("add top comment: rateid => " + commentRateId);
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
         String nowTime = sdf.format(date);
@@ -90,14 +89,14 @@ public class CommentController {
         String commentAuthor = (String)session.getAttribute("userName");
         int commentParentId = 0;
         int isDeleted = 0;
+        int isEdited = 0;
 
-        Comment comment = new Comment(commentAuthor, commentContent, commentParentId, Integer.parseInt(commentRateId), commentCreateTime, isDeleted);
+        Comment comment = new Comment(commentAuthor, commentContent, commentParentId, Integer.parseInt(commentRateId), commentCreateTime, isDeleted, isEdited);
         commentService.addComment(comment);
         rateService.addCommentById(Integer.parseInt(commentRateId));
 
         model.addAttribute("movieId", movieId);
         model.addAttribute("rateId", commentRateId);
-        //return "redirect:/rate/toMovieRate";
         return "redirect:/comment/showComment";
     }
 
@@ -202,8 +201,9 @@ public class CommentController {
 
         String commentAuthor = (String)session.getAttribute("userName");
         int isDeleted = 0;
+        int isEdited = 0;
 
-        Comment comment = new Comment(commentAuthor, replyContent, parentComment.getCommentId(), Integer.parseInt(replyRateId), commentCreateTime, isDeleted);
+        Comment comment = new Comment(commentAuthor, replyContent, parentComment.getCommentId(), Integer.parseInt(replyRateId), commentCreateTime, isDeleted, isEdited);
         commentService.addComment(comment);
         rateService.addCommentById(Integer.parseInt(replyRateId));
 
@@ -365,6 +365,7 @@ public class CommentController {
         Comment comment = commentService.getCommentById(Integer.parseInt(commentId));
         comment.setCommentContent(commentContent);
         comment.setCommentCreateTime(commentCreateTime);
+        comment.setIsEdited(1);
 
         commentService.updateComment(comment);
 
@@ -433,8 +434,9 @@ public class CommentController {
         String commentAuthor = (String)session.getAttribute("userName");
         int commentParentId = 0;
         int isDeleted = 0;
+        int isEdited = 0;
 
-        Comment comment = new Comment(commentAuthor, commentContent, commentParentId, Integer.parseInt(commentRateId), commentCreateTime, isDeleted);
+        Comment comment = new Comment(commentAuthor, commentContent, commentParentId, Integer.parseInt(commentRateId), commentCreateTime, isDeleted, isEdited);
         commentService.addCommentForBook(comment);
         rateService.addCommentById(Integer.parseInt(commentRateId));
 
@@ -547,8 +549,9 @@ public class CommentController {
 
         String commentAuthor = (String)session.getAttribute("userName");
         int isDeleted = 0;
+        int isEdited = 0;
 
-        Comment comment = new Comment(commentAuthor, replyContent, parentComment.getCommentId(), Integer.parseInt(replyRateId), commentCreateTime, isDeleted);
+        Comment comment = new Comment(commentAuthor, replyContent, parentComment.getCommentId(), Integer.parseInt(replyRateId), commentCreateTime, isDeleted, isEdited);
         commentService.addCommentForBook(comment);
         rateService.addCommentById(Integer.parseInt(replyRateId));
         System.out.println("final parent id => " + parentComment.getCommentId());
@@ -618,8 +621,9 @@ public class CommentController {
         String commentAuthor = (String)session.getAttribute("userName");
         int commentParentId = 0;
         int isDeleted = 0;
+        int isEdited = 0;
 
-        Comment comment = new Comment(commentAuthor, commentContent, commentParentId, Integer.parseInt(commentRateId), commentCreateTime, isDeleted);
+        Comment comment = new Comment(commentAuthor, commentContent, commentParentId, Integer.parseInt(commentRateId), commentCreateTime, isDeleted, isEdited);
         commentService.addCommentForTravel(comment);
         rateService.addCommentById(Integer.parseInt(commentRateId));
 
@@ -732,8 +736,9 @@ public class CommentController {
 
         String commentAuthor = (String)session.getAttribute("userName");
         int isDeleted = 0;
+        int isEdited = 0;
 
-        Comment comment = new Comment(commentAuthor, replyContent, parentComment.getCommentId(), Integer.parseInt(replyRateId), commentCreateTime, isDeleted);
+        Comment comment = new Comment(commentAuthor, replyContent, parentComment.getCommentId(), Integer.parseInt(replyRateId), commentCreateTime, isDeleted, isEdited);
         commentService.addCommentForTravel(comment);
         rateService.addCommentById(Integer.parseInt(replyRateId));
         System.out.println("final parent id => " + parentComment.getCommentId());

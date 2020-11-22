@@ -10,17 +10,20 @@ public class Comment {
     private int commentRateId;
     private Date commentCreateTime;
     private int isDeleted;
+    private int isEdited;
 
     public Comment() {
     }
 
-    public Comment(String commentAuthor, String commentContent, int commentParentId, int commentRateId, Date commentCreateTime, int isDeleted) {
+    public Comment(String commentAuthor, String commentContent, int commentParentId, int commentRateId, Date commentCreateTime,
+                   int isDeleted, int isEdited) {
         this.commentAuthor = commentAuthor;
         this.commentContent = commentContent;
         this.commentParentId = commentParentId;
         this.commentRateId = commentRateId;
         this.commentCreateTime = commentCreateTime;
         this.isDeleted = isDeleted;
+        this.isEdited = isEdited;
     }
 
     public int getCommentId() {
@@ -77,6 +80,14 @@ public class Comment {
 
     public void setIsDeleted(int isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public int getIsEdited() {
+        return isEdited;
+    }
+
+    public void setIsEdited(int isEdited) {
+        this.isEdited = isEdited;
     }
 
     @Override

@@ -7,18 +7,18 @@
 
     <!-- add a new comment-->
     <insert id="addComment" parameterType="Comment">
-        insert into grouphub.comment(commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted)
-        value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted});
+        insert into grouphub.comment(commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted, isEdited)
+        value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted}, #{isEdited});
     </insert>
 
     <insert id="addCommentForBook" parameterType="Comment">
-        insert into grouphub.comment(commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted)
-        value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted});
+        insert into grouphub.comment(commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted, isEdited)
+        value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted}, #{isEdited});
     </insert>
 
     <insert id="addCommentForTravel" parameterType="Comment">
-        insert into grouphub.comment(commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted)
-        value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted});
+        insert into grouphub.comment(commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted, isEdited)
+        value (#{commentAuthor}, #{commentContent}, #{commentParentId}, #{commentRateId}, #{commentCreateTime}, #{isDeleted}, #{isEdited});
     </insert>
 
     <!-- query how many comments this rate have -->
@@ -61,7 +61,7 @@
     <update id="updateComment" parameterType="Comment">
         update grouphub.comment
         set commentAuthor = #{commentAuthor}, commentContent = #{commentContent}, commentParentId = #{commentParentId},
-        commentRateId = #{commentRateId}, commentCreateTime = #{commentCreateTime}, isDeleted = #{isDeleted}
+        commentRateId = #{commentRateId}, commentCreateTime = #{commentCreateTime}, isDeleted = #{isDeleted}, isEdited = #{isEdited}
         where commentId = #{commentId};
     </update>
 </mapper>

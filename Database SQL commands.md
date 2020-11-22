@@ -85,16 +85,8 @@ Insert into rate (rateAuthor, rateTitle, rateScore, rateCreateTime, rateContent,
 DROP TABLE IF EXISTS comment;
 
 CREATE TABLE comment (commentId INT(6) NOT NULL auto_increment, commentAuthor VARCHAR(100) NOT NULL, commentContent VARCHAR(50000) NOT NULL, commentParentId INT(6) NOT NULL,
-commentRateId INT(6) NOT NULL, commentCreateTime DATETIME(2) NOT NULL, isDeleted INT(2) NOT NULL, PRIMARY KEY(commentId));
+commentRateId INT(6) NOT NULL, commentCreateTime DATETIME(2) NOT NULL, isDeleted INT(2) NOT NULL, isEdited INT(2) NOT NULL, PRIMARY KEY(commentId));
 
 #commentParentId is the commentId that this comment replies to, if this comment is the first comment of the rate, it should be 0
 #isDeleted: 0 -> this comment not delete, 1 -> this comment deleted by its author, 2 -> this comment deleted by admin
-
-Insert into comment (commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted) VALUES 
-("Ben", "I agree", 0, 1, '2020-11-07 08:30:00', 0);
-
-Insert into comment (commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted) VALUES 
-("Ben", "111", 0, 38, '2020-11-07 08:30:00', 0);
-
-Insert into comment (commentAuthor, commentContent, commentParentId, commentRateId, commentCreateTime, isDeleted) VALUES 
-("zzx", "1111", 4, 38, '2020-11-09 08:30:00', 0);
+#isEdited: 0 -> this comment not modify, 1 -> this comment edited by its author

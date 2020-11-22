@@ -19,7 +19,7 @@ public class CommentServiceTest {
         SimpleDateFormat sdf =   new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
         String nowTime = sdf.format(date);
         Date time = sdf.parse( nowTime );
-        Comment comment = new Comment("zzx", "hahaha", 1, 1, time, 0);
+        Comment comment = new Comment("zzx", "hahaha", 1, 1, time, 0, 0);
         commentServiceImpl.addComment(comment);
         System.out.println("comment added!");
     }
