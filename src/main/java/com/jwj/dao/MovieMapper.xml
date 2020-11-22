@@ -49,6 +49,6 @@
     <!-- return list of movie by its name -->
     <select id="queryMovieByName" resultType="Movie" parameterType="string">
         select * from grouphub.movie
-        where movieName = #{movieName};
+        where upper(movieName) like CONCAT('%', #{movieName}, '%');
     </select>
 </mapper>

@@ -49,6 +49,6 @@
     <!-- return list of book by its name -->
     <select id="queryBookByName" resultType="Book" parameterType="string">
         select * from grouphub.book
-        where bookName = #{bookName};
+        where upper(bookName) like CONCAT('%', #{bookName}, '%');
     </select>
 </mapper>

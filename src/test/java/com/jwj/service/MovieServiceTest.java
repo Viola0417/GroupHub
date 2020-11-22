@@ -75,7 +75,7 @@ public class MovieServiceTest {
     public void testQueryMovieByName() {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         MovieService movieServiceImpl = (MovieService) context.getBean("MovieServiceImpl");
-        String movieName = "Titanic";
+        String movieName = "tit";
         List<Movie> movieList = movieServiceImpl.queryMovieByName(movieName);
         for (Movie movie: movieList) {
             System.out.println(movie.toString());

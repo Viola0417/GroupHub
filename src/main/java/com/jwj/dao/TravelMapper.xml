@@ -49,6 +49,6 @@
     <!-- return list of travel by its name -->
     <select id="queryTravelByName" resultType="Travel" parameterType="string">
         select * from grouphub.travel
-        where travelName = #{travelName};
+        where upper(travelName) like CONCAT('%', #{travelName}, '%');
     </select>
 </mapper>
