@@ -56,4 +56,12 @@
         delete from grouphub.comment
         where commentId = #{commentId};
     </delete>
+
+    <!-- update comment -->
+    <update id="updateComment" parameterType="Comment">
+        update grouphub.comment
+        set commentAuthor = #{commentAuthor}, commentContent = #{commentContent}, commentParentId = #{commentParentId},
+        commentRateId = #{commentRateId}, commentCreateTime = #{commentCreateTime}, isDeleted = #{isDeleted}
+        where commentId = #{commentId};
+    </update>
 </mapper>

@@ -40,12 +40,8 @@ public class CommentController {
 
     @RequestMapping("/toAddComment")
     public String toAddComment(int rateId, HttpSession session, Model model) {
-        //System.out.println("current user is => " + session.getAttribute("userName"));
-        //System.out.println("rateID => " + rateId);
-        //System.out.println("add comment here!");
         int movieIdInt = (Integer) session.getAttribute("movieId");
         String movieId = Integer.toString(movieIdInt);
-        //System.out.println("movieId => " + movieId);
         model.addAttribute("movieId", movieId);
         return "redirect:/rate/toMovieRate";
     }
@@ -139,14 +135,14 @@ public class CommentController {
         model.addAttribute("movieScore", movieScore);
         model.addAttribute("commentHashMap", commentHashMap);
         model.addAttribute("rootRateId", rateId);
+        model.addAttribute("modifyComment", 0);
+        session.setAttribute("rateId", rateId);
 
         return "userMovieRate";
     }
 
     @RequestMapping("/toAddReply")
     public String toAddReply(int commentParentId, HttpSession session, Model model) {
-        //System.out.println("to add reply");
-        //System.out.println("commenParentId => " + commentParentId);
         Comment parentComment = commentService.getCommentById(commentParentId);
         int clickRateId = parentComment.getCommentRateId();
 
@@ -182,6 +178,7 @@ public class CommentController {
         model.addAttribute("commentHashMap", commentHashMap);
         model.addAttribute("rootRateId", clickRateId);
         model.addAttribute("commentParentId", commentParentId);
+        model.addAttribute("modifyComment", 0);
 
         return "userMovieRate";
     }
@@ -189,10 +186,6 @@ public class CommentController {
     @RequestMapping("/addReply")
     public String addReply(@RequestParam("replyContent") String replyContent, @RequestParam("replyRateId") String replyRateId,
                            @RequestParam("replyParentId") String replyParentId, HttpSession session, Model model) throws ParseException {
-        //System.out.println("reply content => " + replyContent);
-        //System.out.println("reply rate id => " + replyRateId);
-        //System.out.println("reply parent id => " + replyParentId);
-
         int commentParentId = Integer.parseInt(replyParentId);
 
         //if reply to a reply, find the top comment(parentId = 0)
@@ -213,7 +206,6 @@ public class CommentController {
         Comment comment = new Comment(commentAuthor, replyContent, parentComment.getCommentId(), Integer.parseInt(replyRateId), commentCreateTime, isDeleted);
         commentService.addComment(comment);
         rateService.addCommentById(Integer.parseInt(replyRateId));
-        //System.out.println("final parent id => " + parentComment.getCommentId());
 
         model.addAttribute("rateId", replyRateId);
         return "redirect:/comment/showComment";
@@ -315,6 +307,68 @@ public class CommentController {
 
         rateService.updateRate(rate);
         model.addAttribute("rateId", rate.getRateId());
+        return "redirect:/comment/showComment";
+    }
+
+    @RequestMapping("/userToUpdateMovieComment")
+    public String userToUpdateMovieComment(int commentId, Model model, HttpSession session) {
+        int rateId = (Integer) session.getAttribute("rateId");
+        Map<Comment, List<Comment>> commentHashMap = new LinkedHashMap<Comment, List<Comment>>();
+
+        //1. find all top comments
+        List<Comment> topCommentList = commentService.getTopCommentContentList(rateId);
+        for (Comment comment: topCommentList) {
+            int curCommentId = comment.getCommentId();
+            List<Comment> replyCommentList = commentService.getReplyCommentList(curCommentId);
+            commentHashMap.put(comment, replyCommentList);
+        }
+
+        int movieId = (Integer) session.getAttribute("movieId");
+        Movie currentMovie = movieService.queryMovieById(movieId);
+        List<Rate> rateList = rateService.queryMovieRate(movieId);
+        String movieTitle = currentMovie.getMovieName() + " (" + Integer.toString(currentMovie.getMovieYear()) + ")";
+        String movieReviews = currentMovie.getTotalRateNumber() + " reviews";
+        String movieScore = "";
+
+        if (currentMovie.getTotalRateNumber() > 0) {
+            Double avgScore = currentMovie.getTotalRateScore() / currentMovie.getTotalRateNumber();
+            String avgScoreStr = String.format("%.2f", avgScore);
+            movieScore = "average rate score: " + avgScoreStr;
+        } else {
+            movieScore = "This movie has no rate now!";
+        }
+
+        model.addAttribute("rateList", rateList);
+        model.addAttribute("movieTitle", movieTitle);
+        model.addAttribute("movieReviews", movieReviews);
+        model.addAttribute("movieScore", movieScore);
+        model.addAttribute("commentHashMap", commentHashMap);
+        model.addAttribute("rootRateId", rateId);
+        model.addAttribute("modifyComment", 1);
+        model.addAttribute("commentId", commentId);
+
+        return "userMovieRate";
+    }
+
+    @RequestMapping("/userUpdateMovieComment")
+    public String userUpdateMovieComment(@RequestParam("commentContent") String commentContent, @RequestParam("commentId") String commentId,
+                                         Model model) throws ParseException {
+        System.out.println("user update comment!");
+        System.out.println("content => " + commentContent);
+        System.out.println("id => " + commentId);
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
+        String nowTime = sdf.format(date);
+        Date commentCreateTime = sdf.parse(nowTime);
+
+        Comment comment = commentService.getCommentById(Integer.parseInt(commentId));
+        comment.setCommentContent(commentContent);
+        comment.setCommentCreateTime(commentCreateTime);
+
+        commentService.updateComment(comment);
+
+        model.addAttribute("rateId", comment.getCommentRateId());
         return "redirect:/comment/showComment";
     }
 

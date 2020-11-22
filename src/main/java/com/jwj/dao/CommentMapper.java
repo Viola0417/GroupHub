@@ -28,4 +28,7 @@ public interface CommentMapper {
 
     //delete comment by its id
     int deleteCommentById(int commentId);
+
+    //update comment
+    int updateComment(Comment comment);
 }

@@ -28,4 +28,7 @@ public interface CommentService {
 
     //delete comment by its id
     public int deleteCommentById(int commentId);
+
+    //update comment
+    public int updateComment(Comment comment);
 }

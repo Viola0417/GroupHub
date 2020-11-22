@@ -83,31 +83,65 @@
                 <c:if test="${rootRateId eq rate.getRateId()}">
                     <c:forEach items="${commentHashMap}" var="topComment">
                         <c:set var="hasReply" value="0"/>
+
                         <c:if test="${commentParentId eq topComment.key.getCommentId()}">
                             <c:set var="hasReply" value="1"/>
                         </c:if>
+
                         <b>${topComment.key.commentAuthor}</b>&nbsp;&nbsp;${topComment.key.commentCreateTime}
                         &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/toAddReply?commentParentId=${topComment.key.getCommentId()}">Reply</a>
 
                         <c:if test="${userName eq topComment.key.commentAuthor}">
                             &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/userDeleteMovieComment?commentId=${topComment.key.getCommentId()}">Delete</a>
+                            &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/userToUpdateMovieComment?commentId=${topComment.key.getCommentId()}">Update</a>
                         </c:if>
                         <br>
-                        ${topComment.key.commentContent}
+
+                        <c:choose>
+                            <c:when test="${modifyComment eq 1 && topComment.key.commentId eq commentId}">
+                                <form action="/comment/userUpdateMovieComment" method="post">
+                                    <input type="text" name="commentContent" value="${topComment.key.commentContent}">
+                                    <input type="hidden" name="commentId" value="${topComment.key.commentId}">
+                                    &nbsp;&nbsp;
+                                    <input type="submit" value="update">
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                ${topComment.key.commentContent}
+                            </c:otherwise>
+                        </c:choose>
                         <br>
+
                         <c:forEach items="${topComment.value}" var="replyComment">
                             &nbsp;&nbsp;&nbsp;<b>${replyComment.commentAuthor}</b>&nbsp;&nbsp;${replyComment.commentCreateTime}
                                 &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/toAddReply?commentParentId=${replyComment.getCommentId()}">Reply</a>
 
                                 <c:if test="${userName eq replyComment.commentAuthor}">
                                     &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/userDeleteMovieComment?commentId=${replyComment.getCommentId()}">Delete</a>
+                                    &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/userToUpdateMovieComment?commentId=${replyComment.getCommentId()}">Update</a>
                                 </c:if>
 
                             <br>
-                            &nbsp;&nbsp;&nbsp;${replyComment.commentContent}<br>
+                            &nbsp;&nbsp;&nbsp;
+                            <c:choose>
+                                <c:when test="${modifyComment eq 1 && replyComment.commentId eq commentId}">
+                                    <form action="/comment/userUpdateMovieComment" method="post">
+                                        <input type="text" name="commentContent" value="${replyComment.commentContent}">
+                                        <input type="hidden" name="commentId" value="${replyComment.commentId}">
+                                        &nbsp;&nbsp;
+                                        <input type="submit" value="update">
+                                    </form>
+                                </c:when>
+                                <c:otherwise>
+                                    ${replyComment.commentContent}
+                                </c:otherwise>
+                            </c:choose>
+                            <br>
+
                             <c:if test="${commentParentId eq replyComment.getCommentId()}">
                                 <c:set var="hasReply" value="1"/>
                             </c:if>
+
                         </c:forEach>
 
                         <c:if test="${hasReply eq 1}">

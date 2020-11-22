@@ -55,4 +55,9 @@ public class CommentServiceImpl implements CommentService {
     public int deleteCommentById(int commentId) {
         return commentMapper.deleteCommentById(commentId);
     }
+
+    //update comment
+    public int updateComment(Comment comment) {
+        return commentMapper.updateComment(comment);
+    }
 }
