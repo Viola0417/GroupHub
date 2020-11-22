@@ -25,4 +25,7 @@ public interface CommentMapper {
 
     //delete all comments of a rate
     int deleteCommentsByRateId(int commentRateId);
+
+    //delete comment by its id
+    int deleteCommentById(int commentId);
 }

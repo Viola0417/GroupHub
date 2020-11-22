@@ -108,7 +108,7 @@ public class RateController {
         rateService.addRate(rate);
 
         //after add new rate, we update this movie's total rate number and total score
-        System.out.println("current score:" + Double.parseDouble(rateScore));
+        //System.out.println("current score:" + Double.parseDouble(rateScore));
         Movie movie = movieService.queryMovieById(movieId);
         movie.setTotalRateScore(movie.getTotalRateScore() + Double.parseDouble(rateScore));
         movie.setTotalRateNumber(movie.getTotalRateNumber() + 1);
@@ -183,10 +183,10 @@ public class RateController {
 
     @RequestMapping("/deleteMovieRate")
     public String deleteMovieRate(int rateId, Model model, HttpSession session) {
-        System.out.println("rate to be deleted => " + rateId);
+        //System.out.println("rate to be deleted => " + rateId);
         Rate rate = rateService.queryRateById(rateId);
         Double originalRateScore = rate.getRateScore();
-        System.out.println(rate.toString());
+        //System.out.println(rate.toString());
         int currentMovieId = (Integer) session.getAttribute("movieId");
         Movie movie = movieService.queryMovieById(currentMovieId);
         Double originalTotalScore = movie.getTotalRateScore();
@@ -356,10 +356,10 @@ public class RateController {
 
     @RequestMapping("/deleteBookRate")
     public String deleteBookRate(int rateId, Model model, HttpSession session) {
-        System.out.println("rate to be deleted => " + rateId);
+        //System.out.println("rate to be deleted => " + rateId);
         Rate rate = rateService.queryRateById(rateId);
         Double originalRateScore = rate.getRateScore();
-        System.out.println(rate.toString());
+        //System.out.println(rate.toString());
         int currentBookId = (Integer) session.getAttribute("bookId");
         Book book = bookService.queryBookById(currentBookId);
         Double originalTotalScore = book.getTotalRateScore();
@@ -522,10 +522,10 @@ public class RateController {
 
     @RequestMapping("/deleteTravelRate")
     public String deleteTravelRate(int rateId, Model model, HttpSession session) {
-        System.out.println("rate to be deleted => " + rateId);
+        //System.out.println("rate to be deleted => " + rateId);
         Rate rate = rateService.queryRateById(rateId);
         Double originalRateScore = rate.getRateScore();
-        System.out.println(rate.toString());
+        //System.out.println(rate.toString());
         int currentTravelId = (Integer) session.getAttribute("travelId");
         Travel travel = travelService.queryTravelById(currentTravelId);
         Double originalTotalScore = travel.getTotalRateScore();

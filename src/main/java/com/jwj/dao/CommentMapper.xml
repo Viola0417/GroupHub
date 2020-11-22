@@ -50,4 +50,10 @@
         delete from grouphub.comment
         where commentRateId = #{commentRateId};
     </delete>
+
+    <!-- delete comment by its comment id -->
+    <delete id="deleteCommentById" parameterType="Integer">
+        delete from grouphub.comment
+        where commentId = #{commentId};
+    </delete>
 </mapper>

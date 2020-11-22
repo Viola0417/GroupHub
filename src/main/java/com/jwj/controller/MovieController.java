@@ -36,7 +36,7 @@ public class MovieController {
     public String addMovie(@RequestParam("movieName") String movieName, @RequestParam("movieYear") String movieYearStr,
                            @RequestParam("movieDescription") String movieDescription, Model model) {
         int movieYear = Integer.parseInt(movieYearStr);
-        System.out.println("name => " + movieName + ", year => " + movieYear + ", description => " + movieDescription);
+        //System.out.println("name => " + movieName + ", year => " + movieYear + ", description => " + movieDescription);
 
         // if this movie has been added(same name and same year)
         //prompt error msg
@@ -56,7 +56,7 @@ public class MovieController {
 
     @RequestMapping("/toUpdateMovie")
     public String toUpdateMovie(int movieId, Model model) {
-        System.out.println("movieId => " + movieId);
+        //System.out.println("movieId => " + movieId);
         Movie movie = movieService.queryMovieById(movieId);
         //System.out.println(movie.toString());
         model.addAttribute("queryMovie", movie);
@@ -81,13 +81,6 @@ public class MovieController {
     @RequestMapping("/toUserMovie")
     public String toUserMovie(Model model) {
         List<Movie> movieList = movieService.queryAllMovie();
-        /*
-        System.out.println("-----toUserMovie------");
-        for (Movie m: movieList) {
-            System.out.println(m.toString());
-        }
-        System.out.println("-----toUserMovie------");
-         */
         model.addAttribute("movieList", movieList);
         return "userMovie";
     }

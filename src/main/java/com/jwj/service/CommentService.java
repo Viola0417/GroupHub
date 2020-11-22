@@ -25,4 +25,7 @@ public interface CommentService {
 
     //delete all comments of a rate
     public int deleteCommentsByRateId(int commentRateId);
+
+    //delete comment by its id
+    public int deleteCommentById(int commentId);
 }

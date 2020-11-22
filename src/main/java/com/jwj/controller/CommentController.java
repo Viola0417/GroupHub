@@ -40,12 +40,12 @@ public class CommentController {
 
     @RequestMapping("/toAddComment")
     public String toAddComment(int rateId, HttpSession session, Model model) {
-        System.out.println("current user is => " + session.getAttribute("userName"));
-        System.out.println("rateID => " + rateId);
-        System.out.println("add comment here!");
+        //System.out.println("current user is => " + session.getAttribute("userName"));
+        //System.out.println("rateID => " + rateId);
+        //System.out.println("add comment here!");
         int movieIdInt = (Integer) session.getAttribute("movieId");
         String movieId = Integer.toString(movieIdInt);
-        System.out.println("movieId => " + movieId);
+        //System.out.println("movieId => " + movieId);
         model.addAttribute("movieId", movieId);
         return "redirect:/rate/toMovieRate";
     }
@@ -56,11 +56,11 @@ public class CommentController {
         String errorMsg = "";
         int movieIdInt = (Integer) session.getAttribute("movieId");
         int commentId = Integer.parseInt(commentRateId);
-        System.out.println("!!!commentId!!! => " + commentId);
+        //System.out.println("!!!commentId!!! => " + commentId);
         String movieId = Integer.toString(movieIdInt);
 
         if (commentContent == null || commentContent.length() == 0) {
-            System.out.println("empty comment!");
+            //System.out.println("empty comment!");
             errorMsg = "comment content can not be empty!";
             model.addAttribute("errorMsg", errorMsg);
             model.addAttribute("movieId", movieId);
@@ -85,7 +85,7 @@ public class CommentController {
             return "userMovieRate";
         }
 
-        System.out.println("add top comment: rateid => " + commentRateId);
+        //System.out.println("add top comment: rateid => " + commentRateId);
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
         String nowTime = sdf.format(date);
@@ -107,7 +107,7 @@ public class CommentController {
 
     @RequestMapping("showComment")
     public String showComment(int rateId, Model model, HttpSession session) {
-        System.out.println("rateId => " + rateId);
+        //System.out.println("rateId => " + rateId);
         Map<Comment, List<Comment>> commentHashMap = new LinkedHashMap<Comment, List<Comment>>();
 
         //1. find all top comments
@@ -116,7 +116,7 @@ public class CommentController {
             int commentId = comment.getCommentId();
             List<Comment> replyCommentList = commentService.getReplyCommentList(commentId);
             commentHashMap.put(comment, replyCommentList);
-        };
+        }
 
         int movieId = (Integer) session.getAttribute("movieId");
         Movie currentMovie = movieService.queryMovieById(movieId);
@@ -145,8 +145,8 @@ public class CommentController {
 
     @RequestMapping("/toAddReply")
     public String toAddReply(int commentParentId, HttpSession session, Model model) {
-        System.out.println("to add reply");
-        System.out.println("commenParentId => " + commentParentId);
+        //System.out.println("to add reply");
+        //System.out.println("commenParentId => " + commentParentId);
         Comment parentComment = commentService.getCommentById(commentParentId);
         int clickRateId = parentComment.getCommentRateId();
 
@@ -189,9 +189,9 @@ public class CommentController {
     @RequestMapping("/addReply")
     public String addReply(@RequestParam("replyContent") String replyContent, @RequestParam("replyRateId") String replyRateId,
                            @RequestParam("replyParentId") String replyParentId, HttpSession session, Model model) throws ParseException {
-        System.out.println("reply content => " + replyContent);
-        System.out.println("reply rate id => " + replyRateId);
-        System.out.println("reply parent id => " + replyParentId);
+        //System.out.println("reply content => " + replyContent);
+        //System.out.println("reply rate id => " + replyRateId);
+        //System.out.println("reply parent id => " + replyParentId);
 
         int commentParentId = Integer.parseInt(replyParentId);
 
@@ -213,11 +213,95 @@ public class CommentController {
         Comment comment = new Comment(commentAuthor, replyContent, parentComment.getCommentId(), Integer.parseInt(replyRateId), commentCreateTime, isDeleted);
         commentService.addComment(comment);
         rateService.addCommentById(Integer.parseInt(replyRateId));
-        System.out.println("final parent id => " + parentComment.getCommentId());
+        //System.out.println("final parent id => " + parentComment.getCommentId());
 
         model.addAttribute("rateId", replyRateId);
         return "redirect:/comment/showComment";
     }
+
+
+    @RequestMapping("/showMovieCommentToAdmin")
+    public String showMovieCommentToAdmin(int rateId, Model model, HttpSession session) {
+        System.out.println("show Movie Comment To Admin");
+        System.out.println("rateId => " + rateId);
+        Map<Comment, List<Comment>> commentHashMap = new LinkedHashMap<Comment, List<Comment>>();
+
+        //1. find all top comments
+        List<Comment> topCommentList = commentService.getTopCommentContentList(rateId);
+
+        for (Comment comment: topCommentList) {
+           // System.out.println("_______________top comment___________________");
+           // System.out.println(comment.toString());
+           // System.out.println("_______________top comment___________________");
+            int commentId = comment.getCommentId();
+            List<Comment> replyCommentList = commentService.getReplyCommentList(commentId);
+            /*
+            for (Comment reply: replyCommentList) {
+                System.out.println("-------reply------");
+                System.out.println(reply.toString());
+                System.out.println("-------reply------");
+            }
+
+             */
+            commentHashMap.put(comment, replyCommentList);
+        }
+
+        int movieId = (Integer) session.getAttribute("movieId");
+        Movie currentMovie = movieService.queryMovieById(movieId);
+        List<Rate> rateList = rateService.queryMovieRate(movieId);
+        String movieTitle = currentMovie.getMovieName() + " (" + Integer.toString(currentMovie.getMovieYear()) + ")";
+        String movieReviews = currentMovie.getTotalRateNumber() + " reviews";
+        String movieScore = "";
+
+        if (currentMovie.getTotalRateNumber() > 0) {
+            Double avgScore = currentMovie.getTotalRateScore() / currentMovie.getTotalRateNumber();
+            String avgScoreStr = String.format("%.2f", avgScore);
+            movieScore = "average rate score: " + avgScoreStr;
+        } else {
+            movieScore = "This movie has no rate now!";
+        }
+
+        model.addAttribute("movieRateList", rateList);
+        model.addAttribute("movieTitle", movieTitle);
+        model.addAttribute("movieReviews", movieReviews);
+        model.addAttribute("movieScore", movieScore);
+        model.addAttribute("commentHashMap", commentHashMap);
+        model.addAttribute("rootRateId", rateId);
+
+        return "adminMovieRate";
+    }
+
+    @RequestMapping("/adminDeleteMovieComment")
+    public String adminDeleteMovieComment(int commentId, Model model, HttpSession session) {
+        System.out.println("delete comment, comment id => " + commentId);
+        Comment comment = commentService.getCommentById(commentId);
+        Rate rate = rateService.queryRateById(comment.getCommentRateId());
+
+        //if comment is top comment, delete it and all of its related comments
+        if (comment.getCommentParentId() == 0) {
+            //find all of its reply and delete
+            List<Comment> replyList = commentService.getReplyCommentList(commentId);
+            int replyNo = replyList.size();
+            for (Comment reply: replyList) {
+                commentService.deleteCommentById(reply.getCommentId());
+            }
+            //delete this top comment itself
+            commentService.deleteCommentById(commentId);
+            //update rate of this comment, make it total reply to be current - reply - topComment
+            rate.setRateTotalReply(rate.getRateTotalReply() - replyNo - 1);
+        } else {
+            //if comment is just a reply, only delete this reply
+            commentService.deleteCommentById(commentId);
+            rate.setRateTotalReply(rate.getRateTotalReply() - 1);
+        }
+
+        rateService.updateRate(rate);
+        int movieId = (Integer) session.getAttribute("movieId");
+        model.addAttribute("movieId", movieId);
+        return "redirect:/rate/toDeleteMovieRate";
+        //return "redirect:/rate/toDeleteMovieRate";
+    }
+
 
     // This is for Book
     @Autowired
@@ -588,5 +672,4 @@ public class CommentController {
         model.addAttribute("rateId", replyRateId);
         return "redirect:/comment/showCommentForTravel";
     }
-
 }

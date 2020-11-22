@@ -44,7 +44,34 @@
                             ${rate.getRateContent()}<br>
                     </div>
                             <a href="${pageContext.request.contextPath}/rate/deleteMovieRate?rateId=${rate.getRateId()}">Delete Rate</a>
+                            &nbsp;&nbsp;
+
+                            <a href="${pageContext.request.contextPath}/comment/showMovieCommentToAdmin?rateId=${rate.getRateId()}">
+                                Comment(${rate.getRateTotalReply()})
+                            </a>
+
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath}/rate/toDeleteMovieRate?movieId=${rate.getRateCategoryId()}">
+                                Close
+                            </a>
                 </div>
+
+                <c:if test="${rootRateId eq rate.getRateId()}">
+                    <c:forEach items="${commentHashMap}" var="topComment">
+                        <b>${topComment.key.commentAuthor}</b>&nbsp;&nbsp;${topComment.key.commentCreateTime}
+                        &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/adminDeleteMovieComment?commentId=${topComment.key.getCommentId()}">Delete</a>
+                        <br>
+                        ${topComment.key.commentContent}
+                        <br>
+                        <c:forEach items="${topComment.value}" var="replyComment">
+                            &nbsp;&nbsp;&nbsp;<b>${replyComment.commentAuthor}</b>&nbsp;&nbsp;${replyComment.commentCreateTime}
+                            &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/comment/adminDeleteMovieComment?commentId=${replyComment.getCommentId()}">Delete</a>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;${replyComment.commentContent}<br>
+                        </c:forEach>
+                        <br>
+                    </c:forEach>
+                </c:if>
                 <br>
             </c:forEach>
             <span style="color:blue;font-weight: bold">${delMovieRateMsg}</span>
