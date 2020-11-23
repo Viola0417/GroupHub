@@ -153,8 +153,17 @@
     }
 
     .column100.column1 {
-        width: 265px;
+        width: 200px;
         text-align:center;
+    }
+    .rate {
+        width: 200px;
+        text-align:center;
+    }
+
+    .rate:hover {
+        background-color: #09223E;
+        color: #fff;
     }
 
     .row100.head th {
@@ -171,7 +180,7 @@
 
     .table100.ver1 td {
         font-family: Montserrat-Regular;
-        font-size: 14px;
+        font-size: 15px;
         color: #808080;
         line-height: 1.4;
         text-align:center;
@@ -179,7 +188,7 @@
 
     .table100.ver1 th {
         font-family: Montserrat-Medium;
-        font-size: 12px;
+        font-size: 17px;
         color: #fff;
         line-height: 1.4;
         text-transform: uppercase;
@@ -203,9 +212,6 @@
         background-color: #09223E;
         color: #fff;
     }
-
-
-
 
     .kt-button {
     display: inline-block;
@@ -310,7 +316,7 @@
                         <th class="column100 column1">Description</th>
                         <th class="column100 column4">Review Number</th>
                         <th class="column100 column5">Rate Score</th>
-                        <th class="column100 column6"></th>
+                        <th></th>
                     </tr>
                     </thead>
 
@@ -321,7 +327,7 @@
                             <td class="column100 column2">${movie.getMovieYear()}</td>
                             <td class="column100 column1">${movie.getDescription()}</td>
                             <td class="column100 column4">${movie.getTotalRateNumber()}</td>
-                            <td class="column100 column5">
+                            <td>
                                 <c:choose>
                                     <c:when test="${movie.getTotalRateScore()==0}">
                                         no rate
@@ -331,7 +337,7 @@
                                     </c:otherwise>
                                 </c:choose>
                             </td>
-                            <td class="column100 column6">
+                            <td class="rate">
                                 <a href="${pageContext.request.contextPath}/rate/toMovieRate?movieId=${movie.getMovieId()}">Rate</a>
                             </td>
                         </tr>
