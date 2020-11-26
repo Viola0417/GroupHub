@@ -90,3 +90,19 @@ commentRateId INT(6) NOT NULL, commentCreateTime DATETIME(2) NOT NULL, isDeleted
 #commentParentId is the commentId that this comment replies to, if this comment is the first comment of the rate, it should be 0
 #isDeleted: 0 -> this comment not delete, 1 -> this comment deleted by its author, 2 -> this comment deleted by admin
 #isEdited: 0 -> this comment not modify, 1 -> this comment edited by its author
+
+----
+
+## Request TABLE 
+
+DROP TABLE IF EXISTS request;
+
+CREATE TABLE request (requestId INT(6) NOT NULL auto_increment, requestAuthor VARCHAR(100) NOT NULL, requestCategoryId INT(2) NOT NULL,
+requestTime DATETIME(2) NOT NULL, requestTitle VARCHAR(100) NOT NULL, requestDescription VARCHAR(5000) NOT NULL, isResolved INT(1) NOT NULL,
+PRIMARY KEY(requestId));
+
+INSERT INTO request (requestAuthor, requestCategoryId, requestTime, requestTitle, requestDescription, isResolved)
+VALUES ("Ben", 1, '2020-11-05 08:30:00', "test title", "test description", 0);
+
+#requestCategoryId: 1 -> movie, 2 -> book, 3 -> travel
+#isResolved: 0 -> not resolved, 1 -> resolved

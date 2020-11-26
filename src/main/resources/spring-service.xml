@@ -43,6 +43,10 @@
         <property name="CommentMapper" ref="commentMapper"/>
     </bean>
 
+    <bean id="RequestServiceImpl" class="com.jwj.service.RequestServiceImpl">
+        <property name="RequestMapper" ref="requestMapper"/>
+    </bean>
+
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
