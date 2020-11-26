@@ -22,6 +22,7 @@
         <mapper resource="com/jwj/dao/TravelMapper.xml"/>
         <mapper resource="com/jwj/dao/RateMapper.xml"/>
         <mapper resource="com/jwj/dao/CommentMapper.xml"/>
+        <mapper resource="com/jwj/dao/RequestMapper.xml"/>
     </mappers>
 
 </configuration>

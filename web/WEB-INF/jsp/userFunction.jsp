@@ -168,6 +168,9 @@
         </div>
         <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-end">
+                <form class="navbar-item" action="/request/checkRequest" method="post">
+                    <button class="kt-button" type="submit">Check Request</button>
+                </form>
                 <form class="navbar-item"  action="/user/toUserModifyPassword" method="post">
                     <button class="kt-button" type="submit">Modify Password</button>
                 </form>
