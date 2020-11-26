@@ -6,6 +6,9 @@
 <body>
 Hi ${adminName}!<br><br><br>
 
+<a href="${pageContext.request.contextPath}/request/adminCheckUnresolvedRequest">Unresolved Request(${unresolvedRequests})</a>
+<br><br><br>
+
 <form action="/admin/toAdminModifyPassword" method="post">
     <button type="submit">Modify Password</button>
 </form>

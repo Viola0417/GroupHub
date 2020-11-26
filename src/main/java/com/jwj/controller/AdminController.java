@@ -1,7 +1,9 @@
 package com.jwj.controller;
 
 import com.jwj.pojo.Admin;
+import com.jwj.pojo.Request;
 import com.jwj.service.AdminService;
+import com.jwj.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,10 @@ public class AdminController {
     @Autowired
     @Qualifier("AdminServiceImpl")
     private AdminService adminService;
+
+    @Autowired
+    @Qualifier("RequestServiceImpl")
+    private RequestService requestService;
 
     //validate whether adminName exists, whether adminName and adminPassword matches
     @RequestMapping("/login")
@@ -37,6 +43,11 @@ public class AdminController {
             model.addAttribute("error", msg);
             return "adminLogin";
         }
+
+        //check how many requests are unresolved now
+        int unresolvedRequests = requestService.countUnresolvedRequest();
+
+        model.addAttribute("unresolvedRequests",unresolvedRequests);
         model.addAttribute("currentAdminName", adminName);
         return "adminFunction";
     }
@@ -74,7 +85,9 @@ public class AdminController {
     }
 
     @RequestMapping("/toAdminFunction")
-    public String toAdminFunction() {
+    public String toAdminFunction(Model model) {
+        int unresolvedRequests = requestService.countUnresolvedRequest();
+        model.addAttribute("unresolvedRequests",unresolvedRequests);
         return "adminFunction";
     }
 

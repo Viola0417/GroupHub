@@ -5,4 +5,46 @@
 
 <mapper namespace="com.jwj.dao.RequestMapper">
 
+    <!-- add a new request -->
+    <insert id="addRequest" parameterType="Request">
+        insert into grouphub.request(requestAuthor, requestCategoryId, requestTime, requestTitle, requestDescription, isResolved)
+        value (#{requestAuthor}, #{requestCategoryId}, #{requestTime}, #{requestTitle}, #{requestDescription}, 0);
+    </insert>
+
+    <!-- query all requests of this author -->
+    <select id="queryRequestByAuthor" parameterType="string" resultType="Request">
+        select * from grouphub.request where requestAuthor = #{requestAuthor};
+    </select>
+
+    <!-- count how many requests are unresolved -->
+    <select id="countUnresolvedRequest" resultType="Integer">
+        select count(requestId) from grouphub.request
+        where isResolved = 0;
+    </select>
+
+    <!-- query all unresolved requests -->
+    <select id="queryUnresolvedRequest" resultType="Request">
+        select * from grouphub.request
+        where isResolved = 0;
+    </select>
+
+    <!-- mark request as with incorrect information -->
+    <update id="markAsIncorrect" parameterType="Request">
+        update grouphub.request
+        set isResolved = 2
+        where requestId = #{requestId};
+    </update>
+
+    <!-- get request by id -->
+    <select id="getRequestById" parameterType="Integer" resultType="Request">
+        select * from grouphub.request
+        where requestId = #{requestId};
+    </select>
+
+    <!-- mark request as resolved -->
+    <update id="markAsResolved" parameterType="Request">
+        update grouphub.request
+        set isResolved = 1
+        where requestId = #{requestId};
+    </update>
 </mapper>

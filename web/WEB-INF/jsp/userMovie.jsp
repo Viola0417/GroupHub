@@ -291,12 +291,18 @@
                     Movie List
                 </h1>
             </div>
+
             <div class="navbar-end">
                 <div class="navbar-item">
                     <form action="${pageContext.request.contextPath}/movie/userQueryMovie" method="post" class="search-box-wrapper">
                         <input type="text" name="queryMovieName" class="search-box-input" placeholder="Movie Name">
                         <button class="search-box-button">Search</button>
                     </form>
+                </div>
+                <div>
+                    <h2>
+                        <a href="${pageContext.request.contextPath}/request/toAddRequest" title="Could not find your interest group? Request here!">Request</a>
+                    </h2>
                 </div>
             </div>
         </div>

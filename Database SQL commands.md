@@ -105,4 +105,4 @@ INSERT INTO request (requestAuthor, requestCategoryId, requestTime, requestTitle
 VALUES ("Ben", 1, '2020-11-05 08:30:00', "test title", "test description", 0);
 
 #requestCategoryId: 1 -> movie, 2 -> book, 3 -> travel
-#isResolved: 0 -> not resolved, 1 -> resolved
+#isResolved: 0 -> not resolved, 1 -> resolved, 2 -> cannot be resolved since incorrect information

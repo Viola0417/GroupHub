@@ -15,6 +15,14 @@ public class Request {
     public Request() {
     }
 
+    public Request(String requestAuthor, int requestCategoryId, Date requestTime, String requestTitle, String requestDescription) {
+        this.requestAuthor = requestAuthor;
+        this.requestCategoryId = requestCategoryId;
+        this.requestTime = requestTime;
+        this.requestTitle = requestTitle;
+        this.requestDescription = requestDescription;
+    }
+
     public int getRequestId() {
         return requestId;
     }
@@ -69,5 +77,18 @@ public class Request {
 
     public void setIsResolved(int isResolved) {
         this.isResolved = isResolved;
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "requestId=" + requestId +
+                ", requestAuthor='" + requestAuthor + '\'' +
+                ", requestCategoryId=" + requestCategoryId +
+                ", requestTime=" + requestTime +
+                ", requestTitle='" + requestTitle + '\'' +
+                ", requestDescription='" + requestDescription + '\'' +
+                ", isResolved=" + isResolved +
+                '}';
     }
 }
