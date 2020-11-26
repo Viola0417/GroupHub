@@ -307,7 +307,7 @@ public class RateController {
         Double originRateScore = originRate.getRateScore();
         Double newRateScore = Double.parseDouble(newRateScoreStr);
         Rate tempRate = new Rate(rateId, newRateTitle, newRateScore, rateTime, newRateContent);
-        rateService.updateRate(tempRate);
+        rateService.updateRateForBook(tempRate);
         Rate newRate = rateService.queryRateById(rateId);
         session.setAttribute("bookRate", newRate);
 
@@ -473,7 +473,7 @@ public class RateController {
         Double originRateScore = originRate.getRateScore();
         Double newRateScore = Double.parseDouble(newRateScoreStr);
         Rate tempRate = new Rate(rateId, newRateTitle, newRateScore, rateTime, newRateContent);
-        rateService.updateRate(tempRate);
+        rateService.updateRateForTravel(tempRate);
         Rate newRate = rateService.queryRateById(rateId);
         session.setAttribute("travelRate", newRate);
 

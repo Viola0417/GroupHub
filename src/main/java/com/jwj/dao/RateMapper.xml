@@ -68,7 +68,21 @@
     <!-- update rate -->
     <update id="updateRate" parameterType="Rate">
         update grouphub.rate
-        set rateTitle = #{rateTitle}, rateScore = #{rateScore}, rateCreateTime = #{rateCreateTime}, rateContent = #{rateContent}, rateTotalReply=#{rateTotalReply}
+        set rateTitle = #{rateTitle}, rateScore = #{rateScore}, rateCreateTime = #{rateCreateTime}, rateContent = #{rateContent}, rateCategoryType = 1, rateTotalReply=#{rateTotalReply}
+        where rateId = #{rateId};
+    </update>
+
+    <!-- update rate -->
+    <update id="updateRateForBook" parameterType="Rate">
+        update grouphub.rate
+        set rateTitle = #{rateTitle}, rateScore = #{rateScore}, rateCreateTime = #{rateCreateTime}, rateContent = #{rateContent}, rateCategoryType = 2, rateTotalReply=#{rateTotalReply}
+        where rateId = #{rateId};
+    </update>
+
+    <!-- update rate -->
+    <update id="updateRateForTravel" parameterType="Rate">
+        update grouphub.rate
+        set rateTitle = #{rateTitle}, rateScore = #{rateScore}, rateCreateTime = #{rateCreateTime}, rateContent = #{rateContent}, rateCategoryType = 3, rateTotalReply=#{rateTotalReply}
         where rateId = #{rateId};
     </update>
 

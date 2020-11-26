@@ -52,7 +52,6 @@ public class CommentController {
         String errorMsg = "";
         int movieIdInt = (Integer) session.getAttribute("movieId");
         int commentId = Integer.parseInt(commentRateId);
-        //System.out.println("!!!commentId!!! => " + commentId);
         String movieId = Integer.toString(movieIdInt);
 
         if (commentContent == null || commentContent.length() == 0) {
@@ -456,7 +455,7 @@ public class CommentController {
             int commentId = comment.getCommentId();
             List<Comment> replyCommentList = commentService.getReplyCommentList(commentId);
             commentHashMap.put(comment, replyCommentList);
-        };
+        }
 
         int bookId = (Integer) session.getAttribute("bookId");
         Book currentBook = bookService.queryBookById(bookId);
@@ -479,6 +478,8 @@ public class CommentController {
         model.addAttribute("bookScore", bookScore);
         model.addAttribute("commentHashMap", commentHashMap);
         model.addAttribute("rootRateId", rateId);
+        model.addAttribute("modifyComment", 0);
+        session.setAttribute("rateId", rateId);
 
         return "userBookRate";
     }
@@ -498,7 +499,7 @@ public class CommentController {
             int commentId = comment.getCommentId();
             List<Comment> replyCommentList = commentService.getReplyCommentList(commentId);
             commentHashMap.put(comment, replyCommentList);
-        };
+        }
 
         int bookId = (Integer) session.getAttribute("bookId");
         Book currentBook = bookService.queryBookById(bookId);
@@ -522,6 +523,7 @@ public class CommentController {
         model.addAttribute("commentHashMap", commentHashMap);
         model.addAttribute("rootRateId", clickRateId);
         model.addAttribute("commentParentId", commentParentId);
+        model.addAttribute("modifyComment", 0);
 
         return "userBookRate";
     }
@@ -557,6 +559,167 @@ public class CommentController {
         System.out.println("final parent id => " + parentComment.getCommentId());
 
         model.addAttribute("rateId", replyRateId);
+        return "redirect:/comment/showCommentForBook";
+    }
+
+    @RequestMapping("/showBookCommentToAdmin")
+    public String showBookCommentToAdmin(int rateId, Model model, HttpSession session) {
+        System.out.println("show book Comment To Admin");
+        System.out.println("rateId => " + rateId);
+        Map<Comment, List<Comment>> commentHashMap = new LinkedHashMap<Comment, List<Comment>>();
+
+        //1. find all top comments
+        List<Comment> topCommentList = commentService.getTopCommentContentList(rateId);
+
+        for (Comment comment: topCommentList) {
+            int commentId = comment.getCommentId();
+            List<Comment> replyCommentList = commentService.getReplyCommentList(commentId);
+            commentHashMap.put(comment, replyCommentList);
+        }
+
+        int bookId = (Integer) session.getAttribute("bookId");
+        Book currentBook = bookService.queryBookById(bookId);
+        List<Rate> rateList = rateService.queryBookRate(bookId);
+        String bookTitle = currentBook.getBookName() + " (" + currentBook.getBookAuthor() + ")";
+        String bookReviews = currentBook.getTotalRateNumber() + " reviews";
+        String bookScore = "";
+
+        if (currentBook.getTotalRateNumber() > 0) {
+            Double avgScore = currentBook.getTotalRateScore() / currentBook.getTotalRateNumber();
+            String avgScoreStr = String.format("%.2f", avgScore);
+            bookScore = "average rate score: " + avgScoreStr;
+        } else {
+            bookScore = "This movie has no rate now!";
+        }
+
+        model.addAttribute("bookRateList", rateList);
+        model.addAttribute("bookTitle",bookTitle);
+        model.addAttribute("bookReviews", bookReviews);
+        model.addAttribute("bookScore", bookScore);
+        model.addAttribute("commentHashMap", commentHashMap);
+        model.addAttribute("rootRateId", rateId);
+
+        return "adminBookRate";
+    }
+
+    @RequestMapping("/adminDeleteBookComment")
+    public String adminDeleteBookComment(int commentId, Model model, HttpSession session) {
+        System.out.println("delete comment, comment id => " + commentId);
+        Comment comment = commentService.getCommentById(commentId);
+        Rate rate = rateService.queryRateById(comment.getCommentRateId());
+
+        //if comment is top comment, delete it and all of its related comments
+        if (comment.getCommentParentId() == 0) {
+            //find all of its reply and delete
+            List<Comment> replyList = commentService.getReplyCommentList(commentId);
+            int replyNo = replyList.size();
+            for (Comment reply: replyList) {
+                commentService.deleteCommentById(reply.getCommentId());
+            }
+            //delete this top comment itself
+            commentService.deleteCommentById(commentId);
+            //update rate of this comment, make it total reply to be current - reply - topComment
+            rate.setRateTotalReply(rate.getRateTotalReply() - replyNo - 1);
+        } else {
+            //if comment is just a reply, only delete this reply
+            commentService.deleteCommentById(commentId);
+            rate.setRateTotalReply(rate.getRateTotalReply() - 1);
+        }
+
+        rateService.updateRateForBook(rate);
+        int bookId = (Integer) session.getAttribute("bookId");
+        model.addAttribute("bookId", bookId);
+        return "redirect:/rate/toDeleteBookRate";
+    }
+
+    @RequestMapping("/userDeleteBookComment")
+    public String userDeleteBookComment(int commentId, Model model, HttpSession session) {
+        Comment comment = commentService.getCommentById(commentId);
+        Rate rate = rateService.queryRateById(comment.getCommentRateId());
+
+        //if comment is top comment, delete it and all of its related comments
+        if (comment.getCommentParentId() == 0) {
+            //find all of its reply and delete
+            List<Comment> replyList = commentService.getReplyCommentList(commentId);
+            int replyNo = replyList.size();
+            for (Comment reply: replyList) {
+                commentService.deleteCommentById(reply.getCommentId());
+            }
+            //delete this top comment itself
+            commentService.deleteCommentById(commentId);
+            //update rate of this comment, make it total reply to be current - reply - topComment
+            rate.setRateTotalReply(rate.getRateTotalReply() - replyNo - 1);
+        } else {
+            //if comment is just a reply, only delete this reply
+            commentService.deleteCommentById(commentId);
+            rate.setRateTotalReply(rate.getRateTotalReply() - 1);
+        }
+
+        rateService.updateRateForBook(rate);
+        model.addAttribute("rateId", rate.getRateId());
+        return "redirect:/comment/showCommentForBook";
+    }
+
+    @RequestMapping("/userToUpdateBookComment")
+    public String userToUpdateBookComment(int commentId, Model model, HttpSession session) {
+        int rateId = (Integer) session.getAttribute("rateId");
+        Map<Comment, List<Comment>> commentHashMap = new LinkedHashMap<Comment, List<Comment>>();
+
+        //1. find all top comments
+        List<Comment> topCommentList = commentService.getTopCommentContentList(rateId);
+        for (Comment comment: topCommentList) {
+            int curCommentId = comment.getCommentId();
+            List<Comment> replyCommentList = commentService.getReplyCommentList(curCommentId);
+            commentHashMap.put(comment, replyCommentList);
+        }
+
+        int bookId = (Integer) session.getAttribute("bookId");
+        Book currentBook = bookService.queryBookById(bookId);
+        List<Rate> rateList = rateService.queryBookRate(bookId);
+        String bookTitle = currentBook.getBookName() + " (" + currentBook.getBookAuthor() + ")";
+        String bookReviews = currentBook.getTotalRateNumber() + " reviews";
+        String bookScore = "";
+
+        if (currentBook.getTotalRateNumber() > 0) {
+            Double avgScore = currentBook.getTotalRateScore() / currentBook.getTotalRateNumber();
+            String avgScoreStr = String.format("%.2f", avgScore);
+            bookScore = "average rate score: " + avgScoreStr;
+        } else {
+            bookScore = "This book has no rate now!";
+        }
+
+        model.addAttribute("rateList", rateList);
+        model.addAttribute("bookTitle", bookTitle);
+        model.addAttribute("bookReviews", bookReviews);
+        model.addAttribute("bookScore", bookScore);
+        model.addAttribute("commentHashMap", commentHashMap);
+        model.addAttribute("rootRateId", rateId);
+        model.addAttribute("modifyComment", 1);
+        model.addAttribute("commentId", commentId);
+
+        return "userBookRate";
+    }
+
+    @RequestMapping("/userUpdateBookComment")
+    public String userUpdateBookComment(@RequestParam("commentContent") String commentContent, @RequestParam("commentId") String commentId,
+                                         Model model) throws ParseException {
+        System.out.println("user update comment!");
+        System.out.println("content => " + commentContent);
+        System.out.println("id => " + commentId);
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
+        String nowTime = sdf.format(date);
+        Date commentCreateTime = sdf.parse(nowTime);
+
+        Comment comment = commentService.getCommentById(Integer.parseInt(commentId));
+        comment.setCommentContent(commentContent);
+        comment.setCommentCreateTime(commentCreateTime);
+        comment.setIsEdited(1);
+
+        commentService.updateComment(comment);
+
+        model.addAttribute("rateId", comment.getCommentRateId());
         return "redirect:/comment/showCommentForBook";
     }
 
@@ -666,6 +829,8 @@ public class CommentController {
         model.addAttribute("travelScore", travelScore);
         model.addAttribute("commentHashMap", commentHashMap);
         model.addAttribute("rootRateId", rateId);
+        model.addAttribute("modifyComment", 0);
+        session.setAttribute("rateId", rateId);
 
         return "userTravelRate";
     }
@@ -709,6 +874,7 @@ public class CommentController {
         model.addAttribute("commentHashMap", commentHashMap);
         model.addAttribute("rootRateId", clickRateId);
         model.addAttribute("commentParentId", commentParentId);
+        model.addAttribute("modifyComment", 0);
 
         return "userTravelRate";
     }
@@ -744,6 +910,167 @@ public class CommentController {
         System.out.println("final parent id => " + parentComment.getCommentId());
 
         model.addAttribute("rateId", replyRateId);
+        return "redirect:/comment/showCommentForTravel";
+    }
+
+    @RequestMapping("/showTravelCommentToAdmin")
+    public String showTravelCommentToAdmin(int rateId, Model model, HttpSession session) {
+        System.out.println("show travel Comment To Admin");
+        System.out.println("rateId => " + rateId);
+        Map<Comment, List<Comment>> commentHashMap = new LinkedHashMap<Comment, List<Comment>>();
+
+        //1. find all top comments
+        List<Comment> topCommentList = commentService.getTopCommentContentList(rateId);
+
+        for (Comment comment: topCommentList) {
+            int commentId = comment.getCommentId();
+            List<Comment> replyCommentList = commentService.getReplyCommentList(commentId);
+            commentHashMap.put(comment, replyCommentList);
+        }
+
+        int travelId = (Integer) session.getAttribute("travelId");
+        Travel currentTravel = travelService.queryTravelById(travelId);
+        List<Rate> rateList = rateService.queryTravelRate(travelId);
+        String travelTitle = currentTravel.getTravelName() + " (" + currentTravel.getTravelCountry() + ")";
+        String travelReviews = currentTravel.getTotalRateNumber() + " reviews";
+        String travelScore = "";
+
+        if (currentTravel.getTotalRateNumber() > 0) {
+            Double avgScore = currentTravel.getTotalRateScore() / currentTravel.getTotalRateNumber();
+            String avgScoreStr = String.format("%.2f", avgScore);
+            travelScore = "average rate score: " + avgScoreStr;
+        } else {
+            travelScore = "This travel has no rate now!";
+        }
+
+        model.addAttribute("travelRateList", rateList);
+        model.addAttribute("travelTitle", travelTitle);
+        model.addAttribute("travelReviews", travelReviews);
+        model.addAttribute("travelScore", travelScore);
+        model.addAttribute("commentHashMap", commentHashMap);
+        model.addAttribute("rootRateId", rateId);
+
+        return "adminTravelRate";
+    }
+
+    @RequestMapping("/adminDeleteTravelComment")
+    public String adminDeleteTravelComment(int commentId, Model model, HttpSession session) {
+        System.out.println("delete comment, comment id => " + commentId);
+        Comment comment = commentService.getCommentById(commentId);
+        Rate rate = rateService.queryRateById(comment.getCommentRateId());
+
+        //if comment is top comment, delete it and all of its related comments
+        if (comment.getCommentParentId() == 0) {
+            //find all of its reply and delete
+            List<Comment> replyList = commentService.getReplyCommentList(commentId);
+            int replyNo = replyList.size();
+            for (Comment reply: replyList) {
+                commentService.deleteCommentById(reply.getCommentId());
+            }
+            //delete this top comment itself
+            commentService.deleteCommentById(commentId);
+            //update rate of this comment, make it total reply to be current - reply - topComment
+            rate.setRateTotalReply(rate.getRateTotalReply() - replyNo - 1);
+        } else {
+            //if comment is just a reply, only delete this reply
+            commentService.deleteCommentById(commentId);
+            rate.setRateTotalReply(rate.getRateTotalReply() - 1);
+        }
+
+        rateService.updateRateForTravel(rate);
+        int travelId = (Integer) session.getAttribute("travelId");
+        model.addAttribute("travelId", travelId);
+        return "redirect:/rate/toDeleteTravelRate";
+    }
+
+    @RequestMapping("/userDeleteTravelComment")
+    public String userDeleteTravelComment(int commentId, Model model, HttpSession session) {
+        Comment comment = commentService.getCommentById(commentId);
+        Rate rate = rateService.queryRateById(comment.getCommentRateId());
+
+        //if comment is top comment, delete it and all of its related comments
+        if (comment.getCommentParentId() == 0) {
+            //find all of its reply and delete
+            List<Comment> replyList = commentService.getReplyCommentList(commentId);
+            int replyNo = replyList.size();
+            for (Comment reply: replyList) {
+                commentService.deleteCommentById(reply.getCommentId());
+            }
+            //delete this top comment itself
+            commentService.deleteCommentById(commentId);
+            //update rate of this comment, make it total reply to be current - reply - topComment
+            rate.setRateTotalReply(rate.getRateTotalReply() - replyNo - 1);
+        } else {
+            //if comment is just a reply, only delete this reply
+            commentService.deleteCommentById(commentId);
+            rate.setRateTotalReply(rate.getRateTotalReply() - 1);
+        }
+
+        rateService.updateRateForTravel(rate);
+        model.addAttribute("rateId", rate.getRateId());
+        return "redirect:/comment/showCommentForTravel";
+    }
+
+    @RequestMapping("/userToUpdateTravelComment")
+    public String userToUpdateTravelComment(int commentId, Model model, HttpSession session) {
+        int rateId = (Integer) session.getAttribute("rateId");
+        Map<Comment, List<Comment>> commentHashMap = new LinkedHashMap<Comment, List<Comment>>();
+
+        //1. find all top comments
+        List<Comment> topCommentList = commentService.getTopCommentContentList(rateId);
+        for (Comment comment: topCommentList) {
+            int curCommentId = comment.getCommentId();
+            List<Comment> replyCommentList = commentService.getReplyCommentList(curCommentId);
+            commentHashMap.put(comment, replyCommentList);
+        }
+
+        int travelId = (Integer) session.getAttribute("travelId");
+        Travel currentTravel = travelService.queryTravelById(travelId);
+        List<Rate> rateList = rateService.queryTravelRate(travelId);
+        String travelTitle = currentTravel.getTravelName() + " (" + currentTravel.getTravelCountry() + ")";
+        String travelReviews = currentTravel.getTotalRateNumber() + " reviews";
+        String travelScore = "";
+
+        if (currentTravel.getTotalRateNumber() > 0) {
+            Double avgScore = currentTravel.getTotalRateScore() / currentTravel.getTotalRateNumber();
+            String avgScoreStr = String.format("%.2f", avgScore);
+            travelScore = "average rate score: " + avgScoreStr;
+        } else {
+            travelScore = "This travel has no rate now!";
+        }
+
+        model.addAttribute("rateList", rateList);
+        model.addAttribute("travelTitle", travelTitle);
+        model.addAttribute("travelReviews", travelReviews);
+        model.addAttribute("travelScore", travelScore);
+        model.addAttribute("commentHashMap", commentHashMap);
+        model.addAttribute("rootRateId", rateId);
+        model.addAttribute("modifyComment", 1);
+        model.addAttribute("commentId", commentId);
+
+        return "userTravelRate";
+    }
+
+    @RequestMapping("/userUpdateTravelComment")
+    public String userUpdateTravelComment(@RequestParam("commentContent") String commentContent, @RequestParam("commentId") String commentId,
+                                        Model model) throws ParseException {
+        System.out.println("user update comment!");
+        System.out.println("content => " + commentContent);
+        System.out.println("id => " + commentId);
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
+        String nowTime = sdf.format(date);
+        Date commentCreateTime = sdf.parse(nowTime);
+
+        Comment comment = commentService.getCommentById(Integer.parseInt(commentId));
+        comment.setCommentContent(commentContent);
+        comment.setCommentCreateTime(commentCreateTime);
+        comment.setIsEdited(1);
+
+        commentService.updateComment(comment);
+
+        model.addAttribute("rateId", comment.getCommentRateId());
         return "redirect:/comment/showCommentForTravel";
     }
 }

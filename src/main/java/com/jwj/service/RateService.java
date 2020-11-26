@@ -29,6 +29,8 @@ public interface RateService {
     // This one can be shared by 3 categories
     //update rate
     int updateRate(Rate rate);
+    int updateRateForBook(Rate rate);
+    int updateRateForTravel(Rate rate);
 
     //delete rate
     int deleteRateById(int rateId);
