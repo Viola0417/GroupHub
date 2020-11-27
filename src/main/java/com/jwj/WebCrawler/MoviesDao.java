@@ -27,19 +27,6 @@ public class MoviesDao {
     }
 
     //Store movie information into the database
-    public void insertTravel(String title, String country, String desc, Integer totalRateNumber, double totalRateScore) throws Exception{
-
-        // SQL to insert travel entry. Ensure this movie has not been added before
-        String travelSql = "INSERT INTO travel(travelName, travelCountry, description, totalRateNumber, totalRateScore)\n " +
-                "SELECT * FROM (SELECT '"+title+"', '"+country+"', '"+desc.replaceAll("'", "")+"', "+totalRateNumber+", "+totalRateScore+") AS tmp \n" +
-                "WHERE NOT EXISTS (SELECT travelName FROM travel WHERE travelName = '"+title+"' AND travelCountry = '"+country+"')" +
-                " LIMIT 1;";
-
-        System.out.println(travelSql);
-        st.executeUpdate(travelSql);
-    }
-
-    //Store movie information into the database
     public void insertBook(String title, String author, String desc, Integer totalRateNumber, double totalRateScore) throws Exception{
 
         // SQL to insert movie entry. Ensure this movie has not been added before
@@ -48,7 +35,21 @@ public class MoviesDao {
                 "WHERE NOT EXISTS (SELECT bookName FROM book WHERE bookName = '"+title+"' AND bookAuthor = '"+author+"')" +
                 " LIMIT 1;";
 
-        System.out.println(bookSql);
+        //System.out.println(bookSql);
         st.executeUpdate(bookSql);
     }
+
+    //Store movie information into the database
+    public void insertTravel(String title, String country, String desc, Integer totalRateNumber, double totalRateScore) throws Exception{
+
+        // SQL to insert travel entry. Ensure this movie has not been added before
+        String travelSql = "INSERT INTO travel(travelName, travelCountry, description, totalRateNumber, totalRateScore)\n " +
+                "SELECT * FROM (SELECT '"+title+"', '"+country+"', '"+desc.replaceAll("'", "")+"', "+totalRateNumber+", "+totalRateScore+") AS tmp \n" +
+                "WHERE NOT EXISTS (SELECT travelName FROM travel WHERE travelName = '"+title+"' AND travelCountry = '"+country+"')" +
+                " LIMIT 1;";
+
+        //System.out.println(travelSql);
+        st.executeUpdate(travelSql);
+    }
+
 }

@@ -44,12 +44,14 @@ public class RequestController {
 
         String successMsg = "Your request has been submitted!";
         model.addAttribute("successMsg", successMsg);
-        if (requestCategoryId == 1) {
-            return "userAddRequest";
-        } else if (requestCategoryId == 2) {
-            return "userAddRequestForBook";
-        }
-        return "userAddRequestForTravel";
+        return "userAddRequest";
+
+//        if (requestCategoryId == 1) {
+//            return "userAddRequest";
+//        } else if (requestCategoryId == 2) {
+//            return "userAddRequestForBook";
+//        }
+//        return "userAddRequestForTravel";
     }
 
     @RequestMapping("/checkRequest")

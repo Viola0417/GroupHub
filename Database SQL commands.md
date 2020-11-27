@@ -45,7 +45,7 @@ INSERT INTO movie (movieName, movieYear, description, totalRateNumber, totalRate
 ## Book TABLE 
 DROP TABLE IF EXISTS book;
 
-CREATE TABLE book (bookId INT(6) NOT NULL auto_increment, bookName VARCHAR(100) NOT NULL, bookAuthor VARCHAR(30) NOT NULL, description VARCHAR(50000) NOT NULL, totalRateNumber INT(6), totalRateScore Double(10,1), PRIMARY KEY(bookId));
+CREATE TABLE book (bookId INT(6) NOT NULL auto_increment, bookName VARCHAR(100) NOT NULL, bookAuthor VARCHAR(100) NOT NULL, description VARCHAR(50000) NOT NULL, totalRateNumber INT(6), totalRateScore Double(10,1), PRIMARY KEY(bookId));
 INSERT INTO book (bookName, bookAuthor, description, totalRateNumber, totalRateScore) VALUES ('Gone with the Wind', 'Margaret Mitchell', 'A manipulative woman and a roguish man conduct a turbulent romance during the American Civil War and Reconstruction periods.', 0, 0.0);
 
 ----
