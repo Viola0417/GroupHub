@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="java.io.*"%>
 <html>
 <head>
     <title>User Add Request</title>
@@ -115,7 +116,7 @@
 <div class="limiter">
     <nav class="navbar">
         <div class="container">
-            <div class="navbar-brand"><a href="${pageContext.request.contextPath}/movie/toUserMovie" class="ArrowBack">
+            <div class="navbar-brand"><a href="javascript:history.back(-1)" class="ArrowBack">
                 <svg viewBox="0 0 27 27" width="33px" height="33px">
                     <path fill="white" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z">
                     </path>
