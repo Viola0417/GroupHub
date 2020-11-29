@@ -116,6 +116,30 @@
         background-color: #4CE1AF;
     }
 
+    .kt-button {
+        display: inline-block;
+        font-weight: bold;
+        line-height: normal;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        width: 100%;
+        font-size: inherit;
+        background-color: #00aeef;
+        color: white;
+        -webkit-transition: all 0.35s ease 0s;
+        transition: all 0.35s ease 0s;
+        text-decoration: none;
+        padding: 14px 18px;
+        text-transform: uppercase;
+        border: 0.2em;
+        border-radius: 0.5em 0.5em 0.5em 0.5em;
+    }
+
+    .kt-button:hover {
+        background-color: #00a0da;
+    }
+
     .limiter {
         width: 100%;
         margin: 0 auto;
@@ -213,50 +237,7 @@
         color: #fff;
     }
 
-    .kt-button {
-    display: inline-block;
-    font-weight: 500;
-    line-height: normal;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    width: 100%;
-    font-size: 10px;
-    background-color: #00aeef;
-    color: white;
-    border: 0;
-    outline: 0;
-    -webkit-transition: all 0.35s ease 0s;
-    transition: all 0.35s ease 0s;
-    text-decoration: none;
-    border-radius: 4px;
-    padding: 12px 25px;
-    text-transform: uppercase;
-    }
-    .butt {
-    display: inline-block;
-    font-weight: 500;
-    line-height: normal;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    background-color: ghostwhite;
-    width: 100%;
-    font-size: 20px;
-    color: #00aeef;
-    border: 0;
-    outline: 0;
-    -webkit-transition: all 0.35s ease 0s;
-    transition: all 0.35s ease 0s;
-    text-decoration: none;
-    border-radius: 4px;
-    padding: 12px 25px;
-    text-transform: uppercase;
-    }
 
-    .kt-button:hover {
-    background-color: #00a0da;
-    }
     .title {
         font-size:35px;
         color: #4CE1AF;
@@ -301,7 +282,7 @@
                 </div>
                 <div>
                     <h2>
-                        <a href="${pageContext.request.contextPath}/request/toAddRequest" title="Could not find your interest group? Request here!">Request</a>
+                        <a href="${pageContext.request.contextPath}/request/toAddRequest" title="Could not find your interest group? Request here!" class="kt-button">Request</a>
                     </h2>
                 </div>
             </div>
