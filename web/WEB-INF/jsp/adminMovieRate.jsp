@@ -93,8 +93,6 @@
         }
 
         .left {
-            position: absolute;
-            left: 50px;
             font-size: 18px;
             line-height: 23px;
         }
