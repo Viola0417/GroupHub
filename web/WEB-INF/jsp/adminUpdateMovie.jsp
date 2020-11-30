@@ -141,7 +141,7 @@
         <div class="box content">
             <div class="review">
                 <form action="${pageContext.request.contextPath}/movie/updateMovie" method="post">
-                    <div style="font-size: 32px; color: #4CE1AF; font-weight: 650">Update movie</div>
+                    <div style="font-size: 32px; color: #4CE1AF; font-weight: 650">Update Movie</div>
                     <input type="hidden" name="movieId" value="${queryMovie.movieId}">
                     <br><h3 style="display: inline; font-size: 23px; ">Movie Title:</h3>&emsp;
                     <input class="reviewInput" type="text" name="movieName" value="${queryMovie.movieName}"><br><br>
@@ -150,7 +150,7 @@
                     <h3 style="font-size: 23px; ">Description:</h3>
                     <br style="display:inline; line-height: 7px; "><textarea class="reviewInput" name="description" rows="10" cols="100">${queryMovie.description}</textarea><br><br><br>
                     <div style="display: flex; justify-content: center">
-                        <button class="kt-button" type="submit">submit</button>
+                        <button class="kt-button" type="submit">Submit</button>
                     </div>
                 </form>
             </div>
