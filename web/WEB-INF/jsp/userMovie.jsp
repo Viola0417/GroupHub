@@ -125,7 +125,7 @@
         cursor: pointer;
         width: 100%;
         font-size: inherit;
-        background-color: #00aeef;
+        background-color: #4CE1AF;
         color: white;
         -webkit-transition: all 0.35s ease 0s;
         transition: all 0.35s ease 0s;

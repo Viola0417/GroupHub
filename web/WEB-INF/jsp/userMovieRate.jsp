@@ -59,12 +59,6 @@
             box-shadow: 0 2px 6px 0 #00aeef;
         }
 
-        .box span.icon {
-            float: right;
-            font-size: 1.7em;
-            padding: 2rem 2rem 0 0;
-        }
-
         .commentBox {
             box-shadow: 0 2px 6px 0 #00d1b2;
         }
@@ -97,10 +91,6 @@
             display: inline;
         }
 
-        .comment {
-            font-size: 19px;
-            display: inline;
-        }
 
         .right {
             position: absolute;
@@ -319,11 +309,10 @@
                             </form>
                         </c:if>
                         </div>
-                    </c:forEach>
-                </c:if>
-
-        </c:forEach>
-                        </div>
+                        </c:forEach>
+                        </c:if>
+                        </c:forEach>
+                    </div>
     </div><br>
 </div>
 </div>
