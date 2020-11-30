@@ -138,7 +138,6 @@
             ${travelReviews}<br>
             ${travelScore}
         </h2>
-        <br><br>
     </div>
     <div class="row clearfix">
         <c:forEach var="rate" items="${requestScope.get('travelRateList')}">

@@ -51,16 +51,6 @@
         .navbar-menu .navbar-item {
             padding: 0 2rem;
         }
-        aside.menu {
-            padding-top: 3rem;
-        }
-        aside.menu .menu-list {
-            line-height: 1.5;
-        }
-        aside.menu .menu-label {
-            padding-left: 10px;
-            font-weight: 700;
-        }
 
         .search-box-wrapper {
             display: inline-flex;
@@ -191,11 +181,6 @@
             text-align:center;
         }
 
-        .column100.column6 {
-            width: 50px;
-            text-align:center;
-        }
-
         .row100.head th {
             padding-top: 24px;
             padding-bottom: 20px;
@@ -250,7 +235,8 @@
                 <svg viewBox="0 0 27 27" width="33px" height="33px">
                     <path fill="white" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z">
                     </path>
-                </svg></a></div>
+                </svg></a>
+            </div>
             <div class="navbar-brand">
                 <span></span>
                 <span></span>
@@ -272,12 +258,6 @@
 
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        <form action="${pageContext.request.contextPath}/movie/userQueryMovie" method="post" class="search-box-wrapper">
-                            <input type="text" name="queryMovieName" class="search-box-input" placeholder="Movie Name">
-                            <button class="search-box-button">Search</button>
-                        </form>
-                    </div>
-                    <div>
                         <h2>
                             <a class="kt-button" href="${pageContext.request.contextPath}/movie/toAddMovie">add movie</a>
                         </h2>
@@ -328,7 +308,6 @@
                 </c:forEach>
                 </tbody>
             </table>
-        </div>
         </div>
     </div>
     </div>

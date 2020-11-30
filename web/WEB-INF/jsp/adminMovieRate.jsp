@@ -137,7 +137,6 @@
                 ${movieReviews}<br>
                 ${movieScore}
             </h2>
-            <br><br>
         </div>
         <div class="row clearfix">
             <c:forEach var="rate" items="${requestScope.get('movieRateList')}">
