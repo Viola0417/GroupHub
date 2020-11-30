@@ -10,11 +10,6 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <style>
 
-        .title {
-            font-size:35px;
-            color: #4CE1AF;
-        }
-
         .navbar {
             background: #00aeef;
         }
@@ -40,10 +35,6 @@
             display: -ms-flexbox;
             display: flex;
             align-items:center;
-        }
-
-        .navbar-menu .navbar-item {
-            padding: 0 2rem;
         }
 
         .kt-button {
@@ -76,16 +67,11 @@
         textarea::-webkit-input-placeholder {
             color: #bfbdbd;
         }
+
         .review {
             padding: 0 12rem;
             display: flex;
             justify-content: center;
-        }
-
-        .green {
-            background: #00d1b2;
-            color: #0a0a0a;
-            outline:1px solid cornflowerblue;
         }
 
         .reviewInput {
@@ -151,7 +137,7 @@
                     <textarea class="reviewInput" id="movieDescription" name="movieDescription" rows="10" cols="100" placeholder="Add description here"></textarea>
                     <br><br><br>
                     <div style="display: flex; justify-content: center">
-                        <button class="kt-button" type="submit">submit</button>
+                        <button class="kt-button" type="submit">Submit</button>
                     </div>
                 </form>
             </div>
